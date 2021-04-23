@@ -6,7 +6,8 @@
  * Wzorce behawioralne: jak wymieniać się informacjami, wykonywać na sobie pewne operacje
  * Gdyż obiekty muszą ze sobą współpracować: przechowywać dane, modyfikować dane, prezentować dane
  *
- * Zaprosimy firmę do współpracy: dostarczymy jej wymagane Interfejsy, a sami napiszemy adaptery pod zewnętrzne biblioteki.. Voila!
+ * Zaprosimy firmę do współpracy: dostarczymy jej wymagane Interfejsy,
+ * a sami napiszemy adaptery pod zewnętrzne biblioteki.. Voila!
  *
  * > Jak zaprojektować strukturę, aby ta współpraca była prosta i efektywna?
  *
@@ -26,9 +27,8 @@
  */
 
 /**
- * Klasa hardkodowana
- * Zewn. moduł, zewn. bibl., nie nasz kod, lub ew. nasz
-*/
+ * Wystiawiamy interfejs
+ */
 interface ProductInterface
 {
     public function __construct(
@@ -38,6 +38,10 @@ interface ProductInterface
     public function getSKU() : int;
     public function getPrice() : float;
 }
+/**
+ * Dostajemy hardkodowaną klasę
+ * Zewn. moduł, zewn. bibl., nie nasz kod, lub ew. nasz
+*/
 class Product implements ProductInterface
 {
     /**

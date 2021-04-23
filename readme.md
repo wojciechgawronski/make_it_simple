@@ -6,16 +6,17 @@ Framework, baza danych, wzorce mogą być szczegółami implementacyjnymi. Nawet
 
 Aby optymalizować warstwę wyżej trzeba poznać i zrozumieć warstwę niżej. 
 
-PHP to język słabo i dynamicznie typowalny. Nie ma konieczności deklarowania zmiennych; a opcjnonalny typ zmiennej można dynamicznie zmieniać w trakcie wykoywania programu. Deklaracje typów kontrolowane są w czasie wykonywania programu. Casus ifa 24 grudnia.
+PHP: słabo i dynamicznie typowalny. Nie ma konieczności deklarowania zmiennych; a opcjnonalny typ zmiennej można dynamicznie zmieniać w trakcie wykoywania programu. Deklaracje typów kontrolowane są w czasie wykonywania programu.
 
-**PHP5**: Może obiektowo. Nie zapomnijmy o SPL.
-**PHP7**: Kontrakt. To opcjonalne wymuszanie deklaracji typów paramterów metod i wymusznie zwracanych wartości; projektowanie pod kątem interfejsu a nie implementacji.
-**PHP8**: Obiektowy syntax i konkurencja w BigData: JITCompiler.
+**PHP5**: A może obiektowo? I mie zapomnijmy o SPL.
+**PHP7**: Kontrakt. Przyspieszenie. To opcjonalne wymuszanie deklaracji typów paramterów metod i wymusznie zwracanych wartości; projektowanie pod kątem interfejsu a nie implementacji.
+**PHP8**: Obiektowy syntax i konkurencja w BigData.
 
-Niniejsze repozytorium wprowadza odrobinę uporzędkowania w mój mały prywatny chaos. 
-Jeśli będzie pomocne lub/i inspirujące - to bardzo dobrze. Jeżeli zabrzmię wariacko - to trudno i jednocześnie nawet całkiem fajnie. 
+Niniejsze repozytorium wprowadza odrobinę uporządkowania w mój mały prywatny chaos i mam nadzieję nadaje mu rzemieślniczy charakter.
+Jeśli będzie pomocne lub/i inspirujące - to bardzo dobrze.
 
 *Kod to elastyczne medium. **Sztuka** to rozpoznać moment w którym prosty prototyp staje się rdzeniem rozleglejszego projektu i odpowiednio szybko powstrzymać wymuszanie zmian projektowych z powodu bezwładności kodu.* Matt Zandrsta.
+
 ## SOLID
 ### Single Responsibility principle
 Dobrze jest wiedzieć o co pytać.

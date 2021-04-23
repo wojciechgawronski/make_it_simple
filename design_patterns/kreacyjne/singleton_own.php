@@ -35,12 +35,12 @@ final class PreferencesSingleton
         $this->params[$key] = $value;
     }
 
-    public function getParam(string $key)
+    public function getParam(string $key) : string
     {
         return $this->params[$key];
     }
 
-    public static function getInstance()
+    public static function getInstance() : object
     {
         if (empty(self::$instance)) {
             self::$instance = new PreferencesSingleton();
@@ -57,3 +57,7 @@ final class PreferencesSingleton
         throw new \Exception("Dontt unserialize a Singleton Pattern");
     }
 }
+
+var_dump(PreferencesSingleton::getInstance());
+// PreferencesSingleton::setParam(['a' => 'wooj']); // error
+// PreferencesSingleton
