@@ -1,10 +1,14 @@
 <?php declare(strict_types=1);
 /**
  * Handler – ŁAŃCUCH ODPOWIEDZIALNOŚCI NASTĘPUJĄCYCH PO SOBIE KLAS
+ * OBIEKTY KTÓRE POTRAFIĄ PRZETWARZAĆ RZĄDANIA
+ *
+ * SUCCESOR - każdy oiekt posiada warunek przetwarzania i przechowuje obiekt następny -
+ * - do którego uderzy żądanie w razie niespełnienia warunku
  *
  * Aplikacja: Request - Response
  * Żądanie przechodzi przez Łańcuch Odpowiedzialności dopóki nie trafi na właściwy HANDLER.
- * To samo żądanie może być obsługiwane przez różne Handlery (w sumie Klasy/Obiekty) z zależności od odpowiedniego parametru żądania.
+ * To samo żądanie może być obsługiwane przez różne Handlery (Klasy/Obiekty) w zależności od odpowiedniego parametru żądania.
  *
  * Problem:
  * Obsluga Płatności:
@@ -12,7 +16,7 @@
  * 100 - 999  Przelewem (BankTransfer)
  * 1000 - Karta
  *
- * Każdy procesor płatności to osobny Handler czyli obiet osobnego typu
+ * Każdy procesor płatności to osobny Handler (tutaj obiet osobnego typu)
  * Każdy procesor potrafi obsłużyć żądanie pod warunkiem, że zgadza się kwota (PARAMETR)
  *
  */

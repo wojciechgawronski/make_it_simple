@@ -1,12 +1,13 @@
-# Make it simpler
-*Wędrówka przez chaos, czyli moja próba zrozumienia tematu.*
+# Simple craftsman stuff
+## Make it simpler
+*Wędrówka przez chaos, czyli moja próba zrozumienia.*
 
-*Wiedza* ma charakter usystematyzowany i ustrukturyzowany i jest grą o sumie niezerowej.
+*Wiedza* ma charakter usystematyzowany, ustrukturyzowany i jest grą o sumie niezerowej.
 Framework, baza danych, wzorce mogą być szczegółami implementacyjnymi. Nawet architektura może być szczegółem, gdy odpowiednio posłużymy się abstrakcją i wyobraźnią. 
 
 Aby optymalizować warstwę wyżej trzeba poznać i zrozumieć warstwę niżej. 
 
-PHP: słabo i dynamicznie typowalny. Nie ma konieczności deklarowania zmiennych; a opcjnonalny typ zmiennej można dynamicznie zmieniać w trakcie wykoywania programu. Deklaracje typów kontrolowane są w czasie wykonywania programu.
+**PHP**: słabo i dynamicznie typowalny język. Nie ma konieczności deklarowania zmiennych; a opcjnonalny typ zmiennej można dynamicznie zmieniać w trakcie wykonywania programu; deklaracje typów kontrolowane są w czasie wykonywania programu.
 
 **PHP5**: A może obiektowo? I mie zapomnijmy o SPL.
 **PHP7**: Kontrakt. Przyspieszenie. To opcjonalne wymuszanie deklaracji typów paramterów metod i wymusznie zwracanych wartości; projektowanie pod kątem interfejsu a nie implementacji.
@@ -25,7 +26,7 @@ Dobrze jest pytać o odpowiedzialność. OK. To jaka jest odpowiedzialność *mo
 * Czy opisuje jedną transakcję bazodanową?
 * Czy małe jest piękne? Liczmy linie;).
 * Czego się bać? Jednej wielkiej klasy czy wielu małych klas? 
-*→ Temat na później: Jaką Kompozycję wymyśleć dla wielu małych klas ?*
+*→ Temat na później: Jaką Kompozycję wymyśleć dla wielu klas ?*
 
 ### Open Close Principle
 ### Liskow substitution Principle

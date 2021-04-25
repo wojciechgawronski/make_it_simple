@@ -23,12 +23,12 @@
  * > Klient może DOKONAĆ WYBORU odpowiedniej Strategii czyli odpowiedniego algorytmu sortowania danych
  */
 
-interface SortStrategy
+interface SortInterface
 {
     public function sort(array $list) : array;
 }
 
-class AscendingSortStrategy implements SortStrategy
+class AscendingSortStrategy implements SortInterface
 {
     public function sort(array $list) : array
     {
@@ -40,7 +40,7 @@ class AscendingSortStrategy implements SortStrategy
 /**
  * Sortowanie kubełkowe
  */
-class DescendingSortStrategy implements SortStrategy
+class DescendingSortStrategy implements SortInterface
 {
     public function sort(array $list) : array
     {
@@ -49,7 +49,7 @@ class DescendingSortStrategy implements SortStrategy
     }
 }
 
-class RandomSortStrategy implements SortStrategy
+class RandomSortStrategy implements SortInterface
 {
     public function sort(array $list) : array
     {
@@ -61,7 +61,7 @@ class RandomSortStrategy implements SortStrategy
 class SortingComponent
 {
     public function __construct(
-        protected SortStrategy $sortingStrategy,
+        protected SortInterface $sortingStrategy,
     ) {
     }
 
