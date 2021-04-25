@@ -1,20 +1,17 @@
 # Simple craftsman stuff
 ## Make it simpler
 *Wędrówka przez chaos, czyli moja próba zrozumienia.*
-
-*Wiedza* ma charakter usystematyzowany, ustrukturyzowany i jest grą o sumie niezerowej.
-Framework, baza danych, wzorce mogą być szczegółami implementacyjnymi. Nawet architektura może być szczegółem, gdy odpowiednio posłużymy się abstrakcją i wyobraźnią. 
+Niniejsze opracowanie to jedynie przykłady koncepcyjne.
 
 Aby optymalizować warstwę wyżej trzeba poznać i zrozumieć warstwę niżej. 
 
-**PHP**: słabo i dynamicznie typowalny język. Nie ma konieczności deklarowania zmiennych; a opcjnonalny typ zmiennej można dynamicznie zmieniać w trakcie wykonywania programu; deklaracje typów kontrolowane są w czasie wykonywania programu.
+**PHP**: słabo i dynamicznie typowalny język. Nie ma konieczności deklarowania zmiennych; a opcjnonalny typ zmiennej można dynamicznie zmieniać w trakcie wykonywania programu (lub nie); deklaracje typów kontrolowane są w czasie wykonywania programu.
 
 **PHP5**: A może obiektowo? I mie zapomnijmy o SPL.
 **PHP7**: Kontrakt. Przyspieszenie. To opcjonalne wymuszanie deklaracji typów paramterów metod i wymusznie zwracanych wartości; projektowanie pod kątem interfejsu a nie implementacji.
 **PHP8**: Obiektowy syntax i konkurencja w BigData.
 
-Niniejsze repozytorium wprowadza odrobinę uporządkowania w mój mały prywatny chaos i mam nadzieję nadaje mu rzemieślniczy charakter.
-Jeśli będzie pomocne lub/i inspirujące - to bardzo dobrze.
+Niniejsze repozytorium wprowadza odrobinę uporządkowania w mój mały prywatny chaos i mam nadzieję nadaje mu rzemieślniczy charakter. Jeśli przy okazji będzie pomocne lub/i inspirujące - to bardzo dobrze.
 
 *Kod to elastyczne medium. **Sztuka** to rozpoznać moment w którym prosty prototyp staje się rdzeniem rozleglejszego projektu i odpowiednio szybko powstrzymać wymuszanie zmian projektowych z powodu bezwładności kodu.* Matt Zandrsta.
 
@@ -90,20 +87,12 @@ Dom ma ściany, samochód ma silnik, klient ma adres, plik posiada możliwość 
 
 
 
-# Design Patterns
-### Builder
-### Fabryka 
-### Fasada
-### Singleton
-### Obserwer
-### Strategia
 
 # Architectur Design
 ## Heksagonal
 ## Pipe and Filters
 ## N-Layer
 ## CQRS
-
 
 
 

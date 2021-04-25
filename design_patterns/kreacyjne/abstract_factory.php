@@ -30,6 +30,63 @@
  * Mamy więc jedną spójną bazę kodu źródłowego, która może być w powyższy sposób rozszerzana - dostosowana do wielu rozwizań.
  */
 
+ /**
+  * NASZA WARSTWA POŚREDNIA, W. ABSTRAKCJI
+  * FABRYKI
+  */
+abstract class UserInterfaceFactory
+{
+    abstract public function createButton();
+    abstract public function createMenu();
+    
+    // inna wrsja wzorca
+    /**
+     * W zależności od parametru w kodzie klienckim
+     * fabryka sama będzie decydować o rodzaju użytych fabryk;
+     * a więc sys. op. a więc i buttonów
+     * więc unikniemy zaszycia dodatkowej logiki w kodzie klienckim (np. kodu warunkującego: ifów itp.)
+     */
+    protected string $operatingSystemName;
+    // abstract public function createButton(string $operatingSystem);
+}
+
+/**
+ * FABRYKA DLA WINDOWSA
+ */
+class WindowsUIFactory extends UserInterfaceFactory
+{
+    public function createButton()
+    {
+        return new WindowsButton;
+    }
+
+    public function createMenu()
+    {
+        return new WindowsMenu;
+    }
+}
+
+/**
+ * FABRYKA DLA LINUXA
+ */
+class LinuxUIFactory extends UserInterfaceFactory
+{
+    public function createButton()
+    {
+        return new LinuxButton;
+    }
+
+    public function createMenu()
+    {
+        return new LinuxMenu;
+    }
+}
+
+
+/**
+ * NASZA WARSTWA WŁAŚCIWA
+ *
+ */
 interface ButtonInterface
 {
 }
@@ -80,3 +137,32 @@ class WindowsMenu extends Menu
         return "menu Windows<br>";
     }
 }
+
+class LinuxMenu extends Menu
+{
+    public function getName() : string
+    {
+        return "menu Linux<br>";
+    }
+}
+
+
+
+/**
+ * KOD KLIENCKI
+ */
+$operatingSystemConfig = 'windows';
+$operatingSystemConfig = 'linux';
+
+if ($operatingSystemConfig == 'windows') {
+    $UI_Factory = new WindowsUIFactory;
+} elseif ($operatingSystemConfig == 'linux') {
+    $UI_Factory = new LinuxUIFactory;
+} else {
+    // $UI_Factory = new .... ;
+}
+
+$menu = $UI_Factory->createMenu();
+$button = $UI_Factory->createButton();
+echo $menu->getName();
+echo $button->getName();
