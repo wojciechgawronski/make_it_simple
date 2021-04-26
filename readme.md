@@ -1,9 +1,8 @@
-# Simple craftsman stuff
+# My simple craftsman stuff
 ## Make it simpler
-*Wędrówka przez chaos, czyli moja próba zrozumienia.*
-Niniejsze opracowanie to jedynie przykłady koncepcyjne.
-
-Aby optymalizować warstwę wyżej trzeba poznać i zrozumieć warstwę niżej. 
+*Wędrówka przez chaos, czyli próba zrozumienia.*
+*Niniejsze opracowanie to jedynie przykłady koncepcyjne.*
+*Aby optymalizować warstwę wyżej trzeba poznać i zrozumieć warstwę niżej.*
 
 **PHP**: słabo i dynamicznie typowalny język. Nie ma konieczności deklarowania zmiennych; a opcjnonalny typ zmiennej można dynamicznie zmieniać w trakcie wykonywania programu (lub nie); deklaracje typów kontrolowane są w czasie wykonywania programu.
 
