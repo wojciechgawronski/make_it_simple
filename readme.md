@@ -48,7 +48,8 @@ Abstrakcja to klasa. Przeciwieństwem a. jest implementacja, instancja, skonkret
 Rozszerzanie, współdzielenie raz zdefiniowanych funkcjonalności pomiędzy klasami: klasą bazową i pochodną, rodzicem i potomkiem. 
 Administrator to wariant użytkownika. 
 DRY. 
-Zbyt dużo poziomów dziedziczenia.. nadmierna komplikacja.
+Zbyt dużo poziomów dziedziczenia.. nadmierna komplikacja:
+Dziedziczenie jest dobrym mechanizmem wymuszania cech klasy bazowej w klasach pochodnych, ale jedncześnie utrudnia wprowadzanie wariacji w ramach hierarchi dziedziczenia. Może Dekorator?
 
 **Interfejs** nakazuje implementować wszystkie metody które definiuje klasom implementującym. 
 Klasy ukrywają implementacyjne szczegóły, gdyż odwracamy zależność i **wstrzykujemy** Interfejs. 
