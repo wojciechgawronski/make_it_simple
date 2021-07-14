@@ -17,7 +17,6 @@ Dobrze jest wiedzieć o co pytać.
 Dobrze jest pytać o odpowiedzialność. OK. To jaka jest odpowiedzialność *mojej* klasy?
 * Czy jest jeden powód do jej zmiany?
 * Czy opisuje jedną transakcję bazodanową?
-* Czy małe jest piękne? Liczmy linie;).
 * Czego się bać? Jednej wielkiej klasy czy wielu małych klas? 
 *→ Temat na później: Jaką Kompozycję wymyśleć dla wielu klas ?*
 
