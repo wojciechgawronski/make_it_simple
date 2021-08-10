@@ -1,5 +1,5 @@
 ### Doctrine: set of PHP libraries
-1. Object Relational Mapper
+1. ORM Object Relational Mapper
 2. DBAL DataBase Abstract Layer
 3. ODL Object Document Layer
 ### Eloquent
@@ -20,10 +20,9 @@ php artisan route:list
 
 ### SQLite
 touch database/database.sqlite;
-sudo chmod 777 database/
-sudo chmod 777 database/database.sqlite;
+sudo chmod 777 database/; sudo chmod 777 database/database.sqlite;
 .env: DB_CONNECTION=sqlite
-php artisan migrate
+php artisan migrate;
 
 ### MySQL
 mysql -V
@@ -77,7 +76,7 @@ compact('messages)
 protected $fillable = ['name'];
 
 @method('post')
-public finction store(Request $request){
+public function store(Request $request){
     // $car = new Car;
     // $car->name = $request->input('name')'
     $car = Car::create([

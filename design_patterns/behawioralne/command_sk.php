@@ -1,7 +1,7 @@
 <?php
 /**
- * WZORCE CZYNNOŚCIOWE pisują zachowania;
- * Opisują sposób komunikacji pomiędzy obiektami, PROCES komunikacji jest ważniejsza niż sztywna, statyczna struktura
+ * WZORCE CZYNNOŚCIOWE opisują zachowania;
+ * Opisują sposób komunikacji pomiędzy obiektami, PROCES komunikacji jest ważniejszy niż sztywna, statyczna struktura
  * Wspólpracę opisują także wzorce strukturalne, tam jednak ważniejsza jest STRUKTURA.
  *
  * Problem:
@@ -104,7 +104,7 @@ $turnOff = new TurnOffEngine($engine);
 
 /**
  * Klient nie pracuje bezpośrenio na klasie silnika
- * Odpięliśmy więc klienta od klasy silnika, poda jako parametr pbiekt odpowiedniej kalsy,
+ * Odpięliśmy więc klienta od klasy silnika, poda jako parametr obiekt odpowiedniej kalsy,
  * która albo włączy silnik albo silnik wyłączy
  *
  * Polocenie jest obiektem (wl)

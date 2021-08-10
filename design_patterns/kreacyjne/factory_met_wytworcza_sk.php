@@ -8,7 +8,7 @@
  * WARSTWA ABSTRAKCJI tutaj: oddzielenie logiki Fabryk od Klas Pojazdów, oraz odpowiednie zaimplementowanie interfesów
  * Można więc powiedzieć, że w usystematyzujemy logikę tworzenia obiektów.
  *
- * KOD KLIENCKI: Nie stworzymy bezpośrednio samochodów/rowróww tylko skorzystamy z metody wytwórczej,
+ * KOD KLIENCKI: Nie stworzymy bezpośrednio samochodów/roweróww tylko skorzystamy z metody wytwórczej,
  * do produkcji obiektów konkretnej klasy nie użyjemy konstruktora,
  * a warstwy abstrakcji, ktrą zapewni nam fabryka: obiekty konkretnych klas będą tworzone w konkretnych fabrykach.
  * Nie będzie interesował nas (jako kod kliencki) nawet jakiej klasy będzie samochód, bo Fabryka wyprodukuje wszysko za nas:

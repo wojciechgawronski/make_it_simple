@@ -1,5 +1,5 @@
-# My simple craftsman stuff
-## Make it simpler
+### My simple craftsman stuff
+### Make it simpler
 *Wędrówka przez chaos, czyli próba zrozumienia.*
 *Niniejsze opracowanie ma charakter koncepcyjny. Repozytorium wprowadza odrobinę uporządkowania w mój mały prywatny chaos i mam nadzieję nadaje mu rzemieślniczy charakter. Jeśli przy okazji będzie pomocne lub/i inspirujące - to bardzo dobrze.*
 
@@ -11,7 +11,7 @@
 
 *Kod to elastyczne medium. **Sztuka** to rozpoznać moment w którym prosty prototyp staje się rdzeniem rozleglejszego projektu i odpowiednio szybko powstrzymać wymuszanie zmian projektowych z powodu bezwładności kodu.* Matt Zandrsta.
 
-## SOLID
+### SOLID
 ### Single Responsibility principle
 Dobrze jest wiedzieć o co pytać.
 Dobrze jest pytać o odpowiedzialność. OK. To jaka jest odpowiedzialność *mojej* klasy?

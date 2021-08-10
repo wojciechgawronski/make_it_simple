@@ -3,7 +3,7 @@
 /**
  * Kreacyjny
  *
- * Problem: jak uniknąć nadpodziewanie długich i niezrozumiałych konstruktorów?
+ * Problem: jak uniknąć nadspodziewanie długich i niezrozumiałych konstruktorów?
  * Używanie tagiego konstruktora po stronie klienta jest niewygodne, trudne i podatne na błędy
  * (parametry obowiązkowe, optymalne, zainicjowane)
  *
