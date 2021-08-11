@@ -1,4 +1,5 @@
-Ctrl Shift V → md view
+Ctrl Shift V → md view  
+**php artisan inspire**
 
 1. [Wstęp](#wstęp)
 2. [Routing](#Routing)
@@ -21,154 +22,143 @@ Ctrl Shift V → md view
 15. [Architektura, Facases](#Komendy)
 15. [Architektura, Facases](#Facades)
 15. [Testy](#Testy)
+***
 
+https://laravel.com/docs/8.x/deployment#server-requirements  
+https://laravel.com/docs/8.x/eloquent-relationships#eager-loading  
+https://laravel.com/docs/8.x/blade  
+https://laravel.com/docs/8.x/migrations  
+https://laravel.com/docs/8.x/queues  
+https://laravel.com/docs/8.x/pagination  
 
+https://webdevetc.com/blog/laravel-naming-conventions/  
+https://github.com/fakerphp/faker  
+https://github.com/fakerphp/faker --dev (lepiej, php8 → ok)  
+https://github.com/aleckrh/laravel-sb-admin-2  
 
+https://github.com/barryvdh/laravel-debugbar  
+composer require barryvdh/laravel-debugbar --dev  
+config/app.php: line 83, 'locale' => 'pl',  
 
+https://startbootstrap.com/  
+https://colorlib.com/wp/cat/ecommerce/  
+https://preview.colorlib.com/#timezone  
+https://github.com/rokde/laravel-slow-query-logger  
+***
 
-https://laravel.com/docs/8.x/deployment#server-requirements
-https://laravel.com/docs/8.x/eloquent-relationships#eager-loading
-https://laravel.com/docs/8.x/blade
-https://laravel.com/docs/8.x/migrations
-https://laravel.com/docs/8.x/queues
-https://laravel.com/docs/8.x/pagination
+VSC: sqliteExtension  
+F1 choose DB from file  
 
-https://webdevetc.com/blog/laravel-naming-conventions/
-https://github.com/fakerphp/faker
-https://github.com/fakerphp/faker --dev (lepiej, php8 → ok)
-https://github.com/aleckrh/laravel-sb-admin-2
-
-https://github.com/barryvdh/laravel-debugbar
-composer require barryvdh/laravel-debugbar --dev
-config/app.php: line 83, 'locale' => 'pl',
-
-https://startbootstrap.com/
-https://colorlib.com/wp/cat/ecommerce/
-https://preview.colorlib.com/#timezone
-
-BAZA DANYCH: 
-https://github.com/rokde/laravel-slow-query-logger
-slow - log
-vsc: sqliteExtension
-F1 choose DB from file
-
-table>thead>tr>th*5^^tbody>tr>td*5
-
-dd() → dump die
-dump() → dump
-php artisan route:list;
-{} WĄSY STALINA
-"" CIAPKI, CUDZYSŁOWIA
--> strzałeczki: **CHAIN**
-WRAPOWAĆ / OPAKOWAĆ
-Redis - cache pamięciowy w ramie,
+table>thead>tr>th*5^^tbody>tr>td*5  
+;-)  
+{} WĄSY STALINA  
+"" CIAPKI, CUDZYSŁOWIA  
+-> strzałeczki: **CHAIN**  
+WRAPOWAĆ / OPAKOWAĆ  
+Redis - cache pamięciowy w ramie,  
 jeśli coś się zepsuje tracimyu pamięć, więc co chwilę powinien zapisywac dane na dysk
 
-**TRUDNE SŁOWA**
-rzutowanie == konwertowanie
-Traity
-Fabryky
-Seedy
-Servisy
-BoskiController → 8tysięcznik
+**TRUDNE SŁOWA**  
+rzutowanie == konwertowanie  
+Traity, Fabryky, Seedy, Servisy  
+BoskiController:: 8tysięcznik
 
-chain (boilder) jeśli metoda zwraca This można wywołać kolejną metodę po niej z klasy
+chain (builder): jeśli metoda zwraca This można wywołać kolejną metodę po niej z klasy
 
-folder public: css, js
-wszytko jest dostępne *assets*
-nie przechodzi przez proces autnetykacji
+folder public: css, js:  *asset('css/css.css')*  
+nie przechodzi przez proces autnetykacji  
 
-Single Action Controller - only **invoke()
+Single Action Controller - only **invoke()  
 CQRS: jedna akcja - jeden plik (rozdzielenie akcji i traktowanie ich atmowo),
 _(separowanie akcji od siebie)_
 invoke - magiczna met, trigeruje się (URUCHAMIA), kiedy użyjemy obiektu jak funkcji
-$obj = new Obj();
+$obj = new Obj();  
 $obj(); // **invoke();
 
-**php artisan down**
-503 error, maintanance mode, wdrażanie nowej wersji kodu na proda - gdy modyfikacje/migracje bazy danych
-**php artisan up**
-serwisik działa
+### **php artisan down**
+php artisan down --secret="1630542a-246b-4b66-afa1-dd72a4c43515"  
+503 error, maintanance mode, wdrażanie nowej wersji kodu na proda - gdy modyfikacje/migracje bazy danych  
+**php artisan up**  
+serwisik działa  
 
 
-### Wstęp
+### Wstęp (Tomasz Tomczyk)
+***
 
-Routing - jest procesem „wiązania” konkretnego adresu URL, na który wchodzi użytkownik, z kodem, który ma się wykonać w naszej aplikacji. Laravel udostępnia kilka sposobów, za pomocą których możemy to zrobić.
+**Routing** - jest procesem „wiązania” konkretnego adresu URL, na który wchodzi użytkownik, z kodem, który ma się wykonać w naszej aplikacji. Laravel udostępnia kilka sposobów, za pomocą których możemy to zrobić.
 
-Controller - dzięki kontrolerom możemy grupować powiązane ze sobą żądania od użytkownika w konkretne klasy, dzięki czemu mamy bardziej zorganizowany kod. Dowiesz się, w jaki sposób tworzyć własne kontrolery i jak je konfigurować w routingu.
+**Controller** - dzięki kontrolerom możemy grupować powiązane ze sobą żądania od użytkownika w konkretne klasy, dzięki czemu mamy bardziej zorganizowany kod. 
 
-Request - omówimy przykłady i zastosowania obiektu Request. Obiekt ten zawiera informacje o parametrach przekazywanych od użytkownika do naszej aplikacji, np. dane formularza lub parametry przekazywane poprzez URL. Dowiesz się, w jaki sposób można uzyskać do nich dostęp (i nie tylko do nich).
+**Request** - przykłady i zastosowania obiektu Request. Obiekt ten zawiera informacje o parametrach przekazywanych od użytkownika do naszej aplikacji, np. dane formularza lub parametry przekazywane poprzez URL. Dowiesz się, w jaki sposób można uzyskać do nich dostęp (i nie tylko do nich).
 
-Response - podstawowe informacje na temat generowania odpowiedzi dla użytkownika.
+**Response** - podstawowe informacje na temat generowania odpowiedzi dla użytkownika.
 
-View – w tej sekcji znajduje się omówienie tematu generowania odpowiedzi przeznaczonej dla użytkownika z naciskiem na stronę back-endową. Poruszany jest temat „V” z MVC oraz na przykładach pokazane jest, w jaki sposób przekazywać dane do szablonów widoków. Poruszony zostaje również temat optymalizacji renderowania widoku.
+**View** – w tej sekcji znajduje się omówienie tematu generowania odpowiedzi przeznaczonej dla użytkownika z naciskiem na stronę back-endową. Poruszany jest temat „V” z MVC oraz na przykładach pokazane jest, w jaki sposób przekazywać dane do szablonów widoków. Poruszony zostaje również temat optymalizacji renderowania widoku.
 
-Blade - jest systemem szablonów używanym przez Laravel. Omówiona zostaje składnia potrzebna do wyświetlania danych przekazanych do widoku. Oprócz samego wyświetlania danych omówione są również instrukcje sterujące, pętle oraz, co najważniejsze, dziedziczenie szablonów.
+**Blade** - jest systemem szablonów używanym przez Laravel. Omówiona zostaje składnia potrzebna do wyświetlania danych przekazanych do widoku. Oprócz samego wyświetlania danych omówione są również instrukcje sterujące, pętle oraz, co najważniejsze, dziedziczenie szablonów.
 
 Laravel, mimo że to framework PHP, posiada wsparcie dla technologii front-endowych. Dowiesz się, jak w prosty sposób można wdrożyć widok oparty na React, Vue lub Bootstrapie do nasze aplikacji. Opisany zostaje również Laravel Mix, który jest nakładką udostępnianą przez framework na Webpack’a.
 
-Konfiguracja frameworka - sam framework, jak również biblioteki, których potencjalnie będziemy chcieć użyć w aplikacji, mogą wymagać konfiguracji. Tutaj dowiesz się, w jaki sposób to zrobić z uwzględnieniem wielu środowisk, z którymi przyjdzie nam pracować.
+**Konfiguracja frameworka** - sam framework, jak również biblioteki, których potencjalnie będziemy chcieć użyć w aplikacji, mogą wymagać konfiguracji. Tutaj dowiesz się, w jaki sposób to zrobić z uwzględnieniem wielu środowisk, z którymi przyjdzie nam pracować.
 
-Sesje - są jednym z podstawowych mechanizmów, który musimy zaimplementować praktycznie w każdej aplikacji www. Laravel posiada już gotową implementację tego mechanizmu, dzięki czemu nie trzeba pisać jej na nowo. Poznasz, w jaki sposób można ten mechanizm skonfigurować i jak go używać.
+Sesje - są jednym z podstawowych mechanizmów, który musimy zaimplementować praktycznie w każdej aplikacji www. Laravel posiada już gotową implementację tego mechanizmu, dzięki czemu nie trzeba pisać jej na nowo. Jak skonfigurować i jak go używać.
 
-Baza danych - przedstawione zostają podstawowe informacje na temat obsług bazy danych i jej konfigurowania. Dowiesz się, w jaki sposób tworzyć schemat/strukturę bazy za pomocą kodu PHP i jak w bardzo łatwy sposób przywracać poprzednią wersję. Zobaczysz również, jak można szybko wypełnić bazę danymi.
+**Baza danych** - konfigurowanie, jak tworzyć schemat/strukturę bazy za pomocą kodu PHP i jak w bardzo łatwy sposób przywracać poprzednią wersję. Zobaczysz również, jak można szybko wypełnić bazę danymi.
 
-Query Builder. W poprzedniej sekcji została utworzona i wypełniona baza danych, w tej wyciągamy z niej dane za pomocą Query Buildera, czyli biblioteki służącej do konstruowania zapytań. Ciąg dalszy poznawania możliwości Query Buildera, dodatkowo omówiony i zaimplementowany jest system do paginacji wyników.
+**Query Builder**. W poprzedniej sekcji została utworzona i wypełniona baza danych, w tej wyciągamy z niej dane za pomocą Query Buildera, czyli biblioteki służącej do konstruowania zapytań. Ciąg dalszy poznawania możliwości Query Buildera, dodatkowo omówiony i zaimplementowany jest system do paginacji wyników.
 
-Eloquent - bardzo istotna sekcja. Eloquent to alternatywne podejście w stosunku do Query Buildera służące do obsługi bazy danych w aplikacji. Jest to ORM, który zapewnia obiektową reprezentację danych pochodzących z bazy. Wszystko to (a nawet więcej), co zostało powiedziane wcześniej na temat Query Buildera, omówione jest tutaj w kontekście Eloquenta.
+**Eloquent** to alternatywne podejście w stosunku do Query Buildera służące do obsługi bazy danych w aplikacji. Jest to ORM, który zapewnia obiektową reprezentację danych pochodzących z bazy. Wszystko to (a nawet więcej), co zostało powiedziane wcześniej na temat Query Buildera, omówione jest tutaj w kontekście Eloquenta.
 
-Middleware – czyli oprogramowanie pośredniczące – zapewnia nam możliwość bardzo prostego filtrowania/analizowania/logowania/procesowania danych w aplikacji w jednym konkretnym miejscu i klasie.
+**Middleware** – oprogramowanie pośredniczące – zapewnia nam możliwość bardzo prostego filtrowania/analizowania/logowania/procesowania danych w aplikacji w jednym konkretnym miejscu i klasie.
 
-Autentykacja – rejestracja oraz logowanie użytkowników do serwisu to jest kolejna generyczna funkcjonalność, którą często trzeba zaimplementować w aplikacji. Laravel dostarcza rozwiązanie tego problemu. Tutaj dowiesz się, w jaki sposób go użyć.
+**Autentykacja** – rejestracja oraz logowanie użytkowników do serwisu to jest kolejna generyczna funkcjonalność, którą często trzeba zaimplementować w aplikacji. Laravel dostarcza rozwiązanie tego problemu. 
 
-Architektura – Lifecycle. Wcześniej zostało omówione dużo podstawowych tematów. Poznana wiedza pozwala przejść do omówienia tego, jak wygląda proces obsługi żądania od użytkownika od A do Z.
+**Architektura – Lifecycle**. Wcześniej zostało omówione dużo podstawowych tematów. Poznana wiedza pozwala przejść do omówienia tego, jak wygląda proces obsługi żądania od użytkownika od A do Z.
 
-Architektura – Kontener zależności. Poznasz miejsce, gdzie są przechowywane wszystkie moduły/biblioteki i zależności, które pomiędzy nimi występują.
+**Architektura – Kontener zależności**. Miejsce, gdzie są przechowywane wszystkie moduły/biblioteki i zależności, które pomiędzy nimi występują.
 
-Architektura – Dostawcy usług. Dostawcy usług (Service Providers) zapewniają miejsce, gdzie można skonfigurować nową usługę w aplikacji (obsłużyć jej zależności, umieścić w kontenerze, itp.).
+**Architektura – Dostawcy usług**. Service Providers zapewniają miejsce, gdzie można skonfigurować nową usługę w aplikacji (obsłużyć jej zależności, umieścić w kontenerze, itp.).
 
-Architektura – Fasady. Fasady zapewniają bardzo szybki dostęp do danych umieszonych w kontenerze. Dzięki temu bardzo prosto można sięgnąć po te dane. Jednak powstaje pytanie, czy to jest aż tak dobre, jak się na początku wydaje?
+**Architektura – Fasady**. Zapewniają bardzo szybki dostęp do danych umieszonych w kontenerze. Dzięki temu bardzo prosto można sięgnąć po te dane. Jednak powstaje pytanie, czy to jest aż tak dobre, jak się na początku wydaje?
 
-Artisan – własne komendy. We wcześniejszych sekcjach powiedziane zostało już, co to jest artisan i jak go używać. Tutaj zajmiemy się tworzeniem własnych komend, które potem będzie można wywoływać za pomocą artisana i używać ich w aplikacji.
+**Artisan – własne komendy**. We wcześniejszych sekcjach powiedziane zostało już, co to jest artisan i jak go używać. Tutaj zajmiemy się tworzeniem własnych komend, które potem będzie można wywoływać za pomocą artisana i używać ich w aplikacji.
 
-Generowanie adresów URL - w tej sekcji w jednym miejscu zostały zebrane informacje, w jaki sposób można generować adres URL poprzez metody udostępniane przez framework.
+**Generowanie adresów URL** - w tej sekcji w jednym miejscu zostały zebrane informacje, w jaki sposób można generować adres URL poprzez metody udostępniane przez framework.
 
-Rozwój aplikacji – implementacja wyszukiwarki. Implementujemy wyszukiwarkę służącą do wyszukiwania gier.
+Rozwój aplikacji – implementacja wyszukiwarki.
 
-Validation i Form Request. Omawiamy narzędzia, dzięki którym możemy walidować dane pochodzące z systemów zewnętrznych lub od samego użytkownika, które przychodzą w jego żądaniu.
+**Validation i Form Request**. Omawiamy narzędzia, dzięki którym możemy walidować dane pochodzące z systemów zewnętrznych lub od samego użytkownika, które przychodzą w jego żądaniu.
 
-Obsługa plików. Wgrywanie plików na serwer może nie jest trudnym tematem do implementacji, ale na pewno uciążliwym. Laravel wspiera nas w tej kwestii i tutaj zobaczysz, w jaki sposób.
+**Obsługa plików**. Wgrywanie plików na serwer może nie jest trudnym tematem do implementacji, ale na pewno uciążliwym. Laravel wspiera nas w tej kwestii i tutaj zobaczysz, w jaki sposób.
 
-Uprawnienia użytkowników. Po autentykacji autoryzacja do zasobów w aplikacji jest jednym z najważniejszych tematów. Tutaj dowiesz się, jak zweryfikować, czy użytkownik ma uprawnienia do wykonywania akcji w aplikacji.
+**Uprawnienia użytkowników**. Po autentykacji autoryzacja do zasobów w aplikacji jest jednym z najważniejszych tematów. Jak zweryfikować, czy użytkownik ma uprawnienia do wykonywania akcji w aplikacji.
 
-Rozwój aplikacji – tworzenie katalogu gier.
 
-Testowanie aplikacji. Wiele osób myśli, że testy to zło konieczne. Jednak są oni w błędzie. Tutaj dowiesz się, dlaczego oraz jak wygląda testowanie od strony Laravela.
+**Testowanie aplikacji**. Wiele osób myśli, że testy to zło konieczne. Jednak są oni w błędzie. Tutaj dowiesz się, dlaczego oraz jak wygląda testowanie od strony Laravela.
 
-- kurs, praktyka (PROJEKTY), notatki
-- Laravel Way- dokumentacja jako podstawa tworzenia apki
+- Laravel Way- dokumentacja jako podstawa tworzenia aplikacji
 - poznanie narzedzia (co nam daje L?, wiedza jak go uzyc), potem wychodzimy poza ramy narzedzia ; modelowanie aplikacji, arch
-- Framerork: zbiur funkcjonalności, zestaw, projektowanie, produkcja,
-
+***
 
   **generyczne rzeczy:**
 - zmienne srodowiskowe
 - komunikacja z bd, biblioteki
 - szablony
 - obsuga bledow
-  → core, szkielet
-  → określenie uporzadkowanej str katalogów; wydzielone warstwy/mudyły aplikacji;
-  → usprawnianie i przyspieszenie procesu budowy
-  → biblioteki: jeśli coś zostało napisane i zotało napoisane dobrze, czemu tego nie użyć?
-  ::::Napisać coś lepiej? Po swojemu?
+    >→ core, szkielet  
+    → określenie uporzadkowanej str katalogów; wydzielone warstwy/mudyły aplikacji;  
+    → usprawnianie i przyspieszenie procesu budowy  
+    → biblioteki: jeśli coś zostało napisane i zotało napoisane dobrze, czemu tego nie użyć?  
+
+::::Napisać coś lepiej? Po swojemu?
 
 ### MVC
 
-wzorzecz arch, podział aplikacji na warstwy;)
-MODEL: LOGIKA BIZNESOWA, to co ona ma robić, np. system przechowywania grafik; wgrywanie, walidacja, prechowywanie, udostepnianie grafik. Funkcjonalość grafik. MOdel działą i powiadamia kontroller. Kontroller renderuje widok z danymu z modelu, Model - <3 aplikacji
-VIEW: Proezentacja, GUI, Interfejs Użytkownika, HTML
-CONTROLLER: kontroluje, na podstawie danych z Requestu, organizuje przepływ Requestu od Usera i zwraca Response
-!! model musi działać niezaleznie od kontrollera, powinien działać także na podstawie skryptów PHP
+wzorzecz arch, podział aplikacji na warstwy;) 
+MODEL: LOGIKA BIZNESOWA, to co ona ma robić, np. system przechowywania grafik;   wgrywanie, walidacja, prechowywanie, udostepnianie grafik. Funkcjonalość grafik. Model działą i powiadamia kontroller. Kontroller renderuje widok z danymu z modelu, Model - <3 aplikacji  
+VIEW: Proezentacja, GUI, Interfejs Użytkownika, HTML  
+CONTROLLER: kontroluje, na podstawie danych z Requestu, organizuje przepływ Requestu od Usera i zwraca Response  
+!! model musi działać niezaleznie od kontrollera, powinien działać także na podstawie skryptów PHP  
 **!!! Model: storage plus logika (funkcjonalności); kiedyś tylko storage (legacy)**
 → separacja odpowiedzialności/warstw: jasno zdefiniowane co za co odpowiada.
 
@@ -203,17 +193,17 @@ CONTROLLER: kontroluje, na podstawie danych z Requestu, organizuje przepływ Req
   **php od 5.3 jest wbudowany server www, jak ngonx czy apacz:: php srtisan serve, symfony server start\*\* DO DEVELOPERKI, NIE DLA PRODUKCJI
 
 **debbuger**
-https://github.com/barryvdh/laravel-debugbar
-composer require barryvdh/laravel-debugbar --dev
-Copy the package config to your local config with the publish command:
-php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
+https://github.com/barryvdh/laravel-debugbar  
+composer require barryvdh/laravel-debugbar --dev  
+Copy the package config to your local config with the publish command:  
+php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"  
 
 ### Struktura katalogów
 
-- /console - comendy konsolwe dla nowo tworzonych komend, widoczna dla artisana
+- console - komendy konsolwe dla nowo tworzonych komend, widoczna dla artisana
   APP/HTTP
-- → pliki i klasy powiazane z ŻĄDANIEM HTTP, controllers, middleware. /console jest dla obsługi
-- kernel.php - plik startowy, taki bootstrap, jakie middlewary, jak wygląda routing do mieddlewarów
+- pliki i klasy powiazane z ŻĄDANIEM HTTP, controllers, middleware. /console jest dla obsługi
+- kernel.php - plik startowy, bootstrap:  jakie middlewary, jak wygląda routing do mieddlewarów
 - bez strict_typów: old way, legacy, kontrolowanie typów
 - vendor: NIC NIE MODYFIKUJEMY
 - handler.php - można skonfigurwać domyuślną obsł wyjątków,
@@ -227,22 +217,22 @@ php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
 
 * wewnrzyny cache frameworka
 
-- /config: app.php, konfiguracja jest wielowymiarową tablicą, część konfigu przetrzymywane jest w innych plikach
+- config: app.php, konfiguracja jest wielowymiarową tablicą, część konfigu przetrzymywane jest w innych plikach
 - config/auth - autoryzacja
 - config/mail
 - config/queue systemy koklejkkowe
   Laravel merguje wszystko do jednej tablicy. Pliki konfiguracyjne powinny być podzielone tematycznie na sekcje. MOżna dopdawać nowe sekcje.
-- DFATABASE
-  - /migracje, kod ktory modyfuiykuje strukture, dodaje elementy, można BD zrollbackować (cosnąć)
-  - /seded - klasy ktore uzupel;niaja BD fajkowymy danyi, np do testow czy do widoków
-  - /factories - fabryki danych
+- DATABASE
+  - migracje, kod ktory modyfuiykuje strukture, dodaje elementy, można zrollbackować 
+  - seed - klasy ktore uzupel;niaja BD fejkowymy danyi, np do testow czy do widoków
+  - factories - fabryki danych
 - PUBLIC - root dla vhosta, widoczny tylko z zewwnątrz, ASSETY - css, js, grafiki
 - RESOURCES
-  - glównie surowe pliki widoków, np sass (preprocesor css), typeScrfipt.., kompilowane przez webpaCKA DO PLIKÓW ZROZUMIAŁYCH PTRZEZ przeglądarkę
-  - VIEWS: renderowanie danych do widpoków, oddzielenie phpa od widopku, separacja logiki biznesowej od logiki widoku, prezentaca danych
+  - glównie surowe pliki widoków, np sass (preprocesor css), typeScrfipt.., kompilowane przez Webpacka DO PLIKÓW ZROZUMIAŁYCH PRZEZ przeglądarkę
+  - VIEWS: renderowanie danych do widoków, separacja logiki biznesowej od logiki widoku, prezentacja danych
 - ROUTES
   - jaki kod ma sie wykonać,
-    dfefinicja routingu dla API; apkę mobilną inną apkę..
+  - dfefinicja routingu dla API; apkę mobilną inną apkę..
 - STORAGE
   - worek an rozmnego rodzaju dane
   - CACHE - skeszowanie konfiguracji (do jednego pliku), kasze widoków.., zmiana konfiguracji: reset cecha
@@ -251,49 +241,53 @@ php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
   - **nowy KATALOG IMAGES: np grafiki niedostępne do użytkownika, PDFy..**
 - TESTY
   - unitowe,
-  - funkcjonalnymi
+  - funkcjonalne
   - integracyjne
+***
 
-package.json, package.lock: pliki dla NPM
-webpack.mix.js: z resosrcem webpackiem do /public
+package.json, package.lock: pliki dla NPM  
+webpack.mix.js: z resosrcem webpackiem do /public  
+composer.json: **composer update**: np. wersje minimalne z gałężi ^7.1.2 do max   
+composer.lock: wersje zainstalowane, **composer install**
 
-.ENV - zmienne środowqiskowe
 
-1. developerskie, ptrzrreważnie na lokalnym komputzreze, na wyłączność, każdy ma swoje na lokalnej maszynie
-2. testowe, uruchamianie testów przez wrzuceniem kodu na produkcję :-)
+#### .ENV - zmienne środowiskowe
+
+1. developerskie, przeważnie na lokalnym komputerze, na wyłączność, każdy ma swoje na lokalnej maszynie
+2. testowe, uruchamianie testów przez wrzuceniem kodu na produkcję :-)  
    → kopia środowiska produkcyjnego
 3. produkcyjne
-   środoqwqiska:
-
+   
+Środowiska:
 - bazowa konfiguracja jest rozna
 - czy mają róne bazy danych
-- gdzie trzymają sesję: w bazie danych / w rediasie? / w plikach (środowsko developerskie)
-  w plikachj .env tzrymać konf środowisk
-  .env.example - szablon, CtrlC, CtrlV
+- gdzie trzymają sesję: w bazie danych / w redisie? / w plikach (środowsko developerskie)
+  w plikachj .env tzrymać konf środowisk  
+  .env.example - szablon, CtrlC, CtrlV  
   **env.testing** konfuguracjha dla UnitTestów, zmienne testowe nadpisują zmienne produkcyjne
   .env nie jest współdzielony między:
-  a. żrodowiskami
-  b. programistami
+  a. środowiskami  
+  b. programistami  
   każdy ma plik .env.example ściągnięty z gita, i ctrl c, ctrl v, lub rename
 - konwencja nazewnicza jakby to były STAŁE
 
 ## ROUTING
 
-1. WSTEP
-2. ROUTE SERVICE PROVIDER
-3. RODZAJE
-4. PERFORMANCE cechowanie
+1. ROUTE SERVICE PROVIDER
+2. RODZAJE
+3. PERFORMANCE cechowanie
 
 - routing http: na podst urla jest wykonywany jakis kod
 - routing consoli:
-  **php artisan inspire**
-  metoda user na obiekcie request zwraca nam dane zalogowanego uytkownika (spoiler ;-) ), _gdy niezalogowany: returnuje null_
+  metoda user na obiekcie request zwraca nam dane zalogowanego uytkownika (spoiler ;-) ), 
+  _gdy niezalogowany: returnuje null_  
   **public function indexAction() w kontrolerach przechowujemy AKCJE, a metody realizujące logikę biznesową powinny być głęviej: w serwisach, modułach..**
-  web.php: /users/{name}/{id}/{text} \**takie same paramtery w akcji odpowiadającej routowiu
-  *index(string $name, int $id, string $text)*
- *BTW: DOMKNIĘCIA to FUNKCJE ANONIMOWE, np. wq web.php. tam można przekazywać arg z Urla, np. {name},, function ($name){} i returnować w widoku
 
-REST API
+  web.php: /users/{name}/{id}/{text} \**takie same paramtery w akcji odpowiadającej route
+  *index(string $name, int $id, string $text)*
+  BTW: DOMKNIĘCIA to FUNKCJE ANONIMOWE, np. wq web.php. tam można przekazywać arg z Urla, np. {name},, function ($name){} i returnować w widoku
+
+REST API  
 **POSTMAN: client http; get, post, put, patch, delete, options**
 save() - obok send, do zapisu adresu i metody ;-)
 
@@ -302,9 +296,9 @@ save() - obok send, do zapisu adresu i metody ;-)
 3. testy do api
 4. ustawić monitory które będą cyklicznie sprawdzać, czy nasze api działa
 
-CACHOWANIE
+CACHOWANIE  
 **php artisan route:cache**
-/bootstrap/cache/routes-v7.php
+/bootstrap/cache/routes-v7.php  
 przyspiesza nawet 100-krotenie wczytywania routingu (podczas bootowania framweworka)
 a co jesli ktoś się do nas podbnija 30razy na minutę?
 
@@ -315,37 +309,44 @@ a co jesli ktoś się do nas podbnija 30razy na minutę?
   **php artisan route:clear**
   // rm /bootstrap/cache/routes-v7.php
 
-GET - tylko pobranie danych z serwera, nie powinno nic się zmienić
-POST - dodanie obiektu
-PUT aktualizacja całego obiekt
-PATCH - aktualizacja część pól (jednego/więcej)
-DELETE - usuwanie obierktu
-OPTIONS - zwraca opcje powiazane z danym URLem - ZASOBEM
+GET - tylko pobranie danych z serwera, nie powinno nic się zmienić  
+POST - dodanie obiektu  
+PUT aktualizacja całego obiekt  
+PATCH - aktualizacja część pól (jednego/więcej)  
+DELETE - usuwanie obierktu  
+OPTIONS - zwraca opcje powiazane z danym URLem - ZASOBEM  
 
 **arrow function** funkcje styrzałkowe, od 7.4 PHP
-fn() => 'returnuję arrow return';
-function func(){
-return 'test'
-}
+
+    fn() => 'returnuję arrow return';
+
+    function func(){
+      return 'test'
+    }
+
 Route::match( ... ); **definiuje co się ma stać dla kilku metod, np. post i get**
 Route::any('/all', []); dopuszczamy wszystkie metody na Endpoincie
 
-tyulko widok:
-Route::view('/view', 'route.view');
-// jeden widok przyjmuje tylko 3 parametry
-Route::view('/view', 'route.view', [
-'parametr' => 'wartosc',
-]);
+tylko widok:
+
+    Route::view('/view', 'start.index');
+    // jeden widok przyjmuje tylko 3 parametry
+    Route::view('/view', 'route.view', [
+        'parametr' => 'wartosc',
+    ]);
+
 **route::view to shortcut ;-)**
 
 **OPCJONALNY PARAMETR W ENDPOINCIE → ?**
 users/{id?}
 CHAIN routinguv - walidacja nicka, tylko małe litery, min. jeden znak (plus)
-route::get('/user/{nick}/{id}/', ... )->where([
-'nick' => '[a-z]+',
-'id' => '[0-9]'
-]);
-→ error 404 gdy: /user/Woj
+
+    route::get('/user/{nick}/{id}/', ... )->where([
+        'nick' => '[a-z]+',
+        'id' => '[0-9]'
+    ]);
+    → error 404 gdy: /user/Woj
+
 **ROUTE NAME**
 web.php: routom możemy nadawać nazwy CHAINEM: ->name('shop.items');
 i w widoku: route('shop.name') wyświetylać,
@@ -363,53 +364,54 @@ blade: **url('users')** jednak na sztywno..
 
 web.php: $url = route('shop.item.single, ['id' => 22, 'data' => 'aaa'])
 url: item/id/22/data/aaa
-WEB.PHP framework jest mądry i może zamioenić parametr na int
+web.php: framework jest mądry i może zamienić parametr na int
 /users/{id}/{title}
 function show(int $id, string $title){ .. }
 
-**EAN - unikalmny numer produktu**
+**EAN - unikalmny numer produktu ;-) SKU**
 
 ## Controller
 
-php artisan make:controller User/AddressController --invokable
-php artisan make:controller User/AddressController --resource
-**api:**
+php artisan make:controller User/AddressController --invokable  
+php artisan make:controller User/AddressController --resource  
+
+**api:**  
 php artisan make:controller Api/UserController --api
-api.php:
+api.php:  
 Route::apiResource('/games', )
-nie ma formularza, request tylko przyjmuje dane i nie generuje widoków
-API skonsumuje request
+nie ma formularza, request tylko przyjmuje dane i nie generuje widoków  
+API skonsumuje request  
 
-php artisan make:controller User/AddressController -i
-php artisan make:controller User/ProfilController
+php artisan make:controller User/AddressController -i  
+php artisan make:controller User/ProfilController  
 
-php artisan make:controller UserController --resource
-web.php:
+php artisan make:controller UserController --resource  
 Route::resource('/user', UserController::class);
 php artisan route:list
+php artisan route:list --name=user
 
 // --invokable, -i
 // Grupowanie kontrollerów, subfolder
 // CRUD --resource
 
 // ograniczenie akcji w urlu
-Route::resource('/contact', ContactController::class)->only([
-'index', 'show'
-]);
+
+    Route::resource('/contact', ContactController::class)->only([
+      'index', 'show'
+    ]);
 
 FILTERED API LIST:
-php artisan route:list --name=user
 
-1. Single Action Controller
+1._Single Action Controller
 
-Route::get('/users/{id}/address', ShowAddressController::class);
-class ShowAddressController extends Controller
-{
-public function \_\_invoke()
-{
-return 'address';
-}
-}
+
+    Route::get('/users/{id}/address', ShowAddressController::class);
+    class ShowAddressController extends Controller
+    {
+      public function \_\_invoke(){
+        return 'address';
+      }
+    }
 
 2. Resource Controller
 3. Api Resource Controller
@@ -428,57 +430,48 @@ web.php
 przez requesty Ajaxowe z naszej strony
 poprzez aplikacje mobilne
 podbijać do odpowiedniego urla i coś tworzyć
-i zwracać
-JSON
-XML
+i zwracać JSON / XML
 
 RESOURECES → only
-Route::resource('/contact', ContactController::class)->only([
-'index', 'show'
-]);
+
+    Route::resource('/contact', ContactController::class)->only([
+      'index', 'show'
+    ]);
 
 ## REQUEST
-*public function testRequest(Request $request, int $id) { ...*
+    public function testRequest(Request $request, int $id) { ...*
+    $input = $request->input();
+    $query = $request->query();
 
-$input = $request->input();
-$query = $request->query();
 
-1. Wstęp
-2. Dostęp do requestu
-3. Najpopularniejsze metody
-
-Akcje użytkownikato: kliknięcie w link, przesłanie formularz, pobranie danych przez Ajax, użytkownik przesyła dane ud Usera na serwer
-i framewoprk opakwuje to dane obiektem Request
+Akcje użytkownika: kliknięcie w link, przesłanie formularz, pobranie danych przez Ajax, użytkownik przesyła dane ud Usera na serwer
+i framework opakwuje to dane obiektem Request
 
 - np. query parameters (GET)
 - POST parameters
 - cookies, nagłówki
-  LaravelToolbar → Request
-  Dab: get, post, cookicesy, dane na temat serwera i te wszytskie dane sa opakowane obiektem Request i przez obiek request możemy do nich się dostać.
-  Request to kontener na dane ktróre otrzymujemy razem z żadaniem od użytkownika, pobieramy dane i wykorzystujemy je dalej do Logiki Biznesowej
+  LaravelToolbar → Request  
+Dab: get, post, cookisy, dane na temat serwera i te wszytskie dane sa opakowane obiektem Request i przez obiek request możemy do nich się dostać.
+Request to kontener na dane ktróre otrzymujemy razem z żadaniem od użytkownika, pobieramy dane i wykorzystujemy je dalej do Logiki Biznesowej
 
 wstrzykiwanie requestu:
 
-use Illuminate\Http\Request;
-public function (Request $request) { ... }
+    use Illuminate\Http\Request;
+    public function (Request $request) { ... }
 
-class Request extends SymfonyRequest implements Arrayable, ArrayAccess
+    class Request extends SymfonyRequest implements Arrayable, ArrayAccess
 
-/\*\*
-_ /testRequest/{id}
-_ wielka litera ma znaczenie
-_ kolejność parametrów ma znaczenie
-_/
-
-*public function testRequest(Request $request, int $id) { ...*
+/testRequest/{id}  
+wielka litera ma znaczenie  
+kolejność parametrów ma znaczenie  
 
 **http://127.0.0.1:8000/testRequest/1?foo=bar**
 
 
-**$url = $request->path();** // "testRequest/1"
-**$uri = $request->url();**  // "http://127.0.0.1:8000/testRequest/1"
-**$fullUrl = $request->fullUrl();** // "http://127.0.0.1:8000/testRequest/1?foo=bar"
-dump($url, $uri, $fullUrl);
+**$url = $request->path();** // "testRequest/1"  
+**$uri = $request->url();**  // "http://127.0.0.1:8000/testRequest/1"  
+**$fullUrl = $request->fullUrl();** // "http://127.0.0.1:8000/testRequest/1?foo=bar"  
+dump($url, $uri, $fullUrl);  
 
 **$httpMethod = $request->method();**
 dump($httpMethod); // GET
@@ -487,118 +480,111 @@ dump($httpMethod); // GET
 if ($request->isMethod('get')) { ... }
 
 **input()** - gdy nie ma znaczenia czy użytkownik użył GEST POST czy PUT
-(wcześniej powinna byc walidacja)
-**$name = $request->input('name');** // null gdy nie ma pola i woj
-**$name = $request->input('name', 'Kowaliski');** // watość domyślna
-**$name = $request->input('name.1');** // przesyłamy tablicę parametrów i to jest element tablicy o indexie 1. Tablice mogą być wielowymiarowe
+(wcześniej powinna byc walidacja)  
+**$name = $request->input('name');** // null gdy nie ma pola i woj  
+**$name = $request->input('name', 'Kowaliski');** // watość domyślna  
+**$name = $request->input('name.1');** // przesyłamy tablicę parametrów i to jest element tablicy o indexie 1. Tablice mogą być wielowymiarowe  
 
-$request->isMethod('post') // w kontrolerze.. i w web.php ;-)
-w web ktoś może zrobić: Route::any( ... ) i kwas ;-)
+$request->isMethod('post') // w kontrolerze.. i w web.php ;-)  
+w web ktoś może zrobić: Route::any( ... ) i kwas ;-)  
 
 wszystkie dane:
 http://127.0.0.1:8000/testRequest/1?name=woj&nic=boss
-**$request->all();**
-array:2 [▼
-  "name" => "woj"
-  "nic" => "boss"
-];
 
-all() zwraca wsyztskie elemnty formularza POST
-all() zwraca także informacje o plikach, które POST wysyła na server
+    **$request->all();**
+    array:2 [▼
+      "name" => "woj"
+      "nic" => "boss"
+    ];
 
-query() - query parameters() - pobranie wszystkich parametrów z URLa, GET
-**$allQuery = $request->query();**
-**$name = $request->query('name');**
-**$name = $request->query('name', 'Wartość_domyślna);**
+all() zwraca wszystkie elemnty formularza POST  
+all() zwraca także informacje o plikach, które POST wysyła na server  
+
+query() - query parameters() - pobranie wszystkich parametrów z URLa, GET  
+**$allQuery = $request->query();**  
+**$name = $request->query('name');**  
+**$name = $request->query('name', 'Wartość_domyślna);**  
 W URLu dostajemy stringa. Konwertujemy ją na boolean:
 
-?name=woj&expier=true
-**$expierd = $request->boolean('expierd);**
-$expierd // true, false; "aaa', 2 - konwertowane na false
-1, true
+?name=woj&expire=true  
+**$expierd = $request->boolean('expierd);**  
+$expierd // true, false; "aaa', 2 - konwertowane na false  
+1, true  
 
 czy wartość zotała przesłana?
 **$hasName = $request->has('name');**
 $hasname: true/false
 
-**$hasParams = $request->has(['name', 'nick']);** czy request ma 2 parametry
-**$hasParams = $request->hasAby(['name', 'nick']);** czy request ma któryś z 2 parametrów
+    $hasParams = $request->has(['name', 'nick']); czy request ma 2 parametry  
+    $hasParams = $request->hasAby(['name', 'nick']); czy request ma któryś z 2 parametrów  
 
-cookie
-$cookie =$request->cookie('my_cookie');
+cookie  
 
+    $cookie =$request->cookie('my_cookie');  
 
 ## RESPONSE
 
-ODPOWIEDŹ SERWERA do użytkownika
-USER -metoda HTTP - Framweork - opakojemy w Request, Wpada do kontrollera i przelatuje p[rzez midlleware, LOGIKA i Wraca RESPONSE:
+ODPOWIEDŹ SERWERA do użytkownika  
+USER -metoda HTTP - Framweork - opakowujemy w Request, Wpada do kontrollera i przelatuje przez midlleware, LOGIKA i Wraca RESPONSE:  
 
 - text
 - html
 - xml
 - json
 - przekierowanie
-- plik
-  To wszystko jest response
-  Larva opakowuje to niejawnie w obiekt Response i procesuje go do widoku Blade i zostanie tam wyrenderowany
+- plik  
 
-public function index (Request $request, int $id) { ...
+To wszystko jest response. Larva opakowuje to niejawnie w obiekt Response i procesuje go do widoku Blade i zostanie tam wyrenderowany
 
-return "string, konkatenacja . $id;
+    // reposme object
+    return response(
+      "content <h3>html jakiś $id</h3>",
+      200,
+      ['Content-Type' => 'text/plain]
+    );
 
-// reposme object
-return response(
-  "content <h3>html jakiś $id</h3>",
-  200,
-  ['Content-Type' => 'text/plain]
-);
+    // chain (builder)
+    // budujemy obiek poprzez wywoływanie jakiś metod
+    return response("<p>some text $id</p>")
+      ->setStatusCode(200)
+      ->header('Content-Type', 'text-html')
+      ->header('Own-Header', 'Laravel')
+      ->cookie('my_best_cookie', 'brownie', 10)
+      // browni - wartość zostanie zakodowana przez Laravela, dla bezpieczeństwa,
+      // tak by user nie mógł kombinowac z warotściamy tych ciasteczek 
+      // with cookie
+    return response();
 
-// chain (builder)
-// budujemy obiek poprzez wywoływanie jakiś metod
-// 
-return response("<p>some text $id</p>")
-  ->setStatusCode(200)
-  ->header('Content-Type', 'text-html')
-  ->header('Own-Header', 'Laravel')
-  ->cookie('my_best_cookie', 'brownie', 10)
-  // browni - wartość zostanie zakodowana przez Laravela, dla bezpieczeństwa,
-  // tak by user nie mógł kombinowac z warotściamy tych ciasteczek 
-;
+REDIRECT  
+strona wymaga zalogowania a user jest niezalogowany, przekierowanie na login i z powrotem na zasób  
+404 albo redirect na reklamę: tego produktu nie ma w sklepie ale jest taki..
 
-// with cookie
-return response();
+    return redirect('/users');  
+    return redirect('/fgdhdfgh'); // i dostanimiey 404 ;)  
+    return redirect->route('get.users');  
+    return redirect->route('get.users.address', ['id' => $id]);  
 
-REDIRECT
-- strona wymaga zalogowania a uzser jest niezalogowany, przkierowanie na login i z powrotem na zasób
-- 404 albo redirect na reklamę: tego produktu nie ma w sklepie ale jest taki..
-**return redirect('/users');**
-**return redirect('/fgdhdfgh');** // i dostanimiey 404 ;)
-**return redirect->route('get.users');**
-**return redirect->route('get.users.address', ['id' => $id]);**
+    // przekierowanie do akcji w kontrolerze, z paramewrteem lub bez
+    use App\Http\Controllers\HomeController;
+    return redirect()->action([HomeController::class, 'index']);
+    return redirect()->action(
+        [UserController::class, 'profile'], ['id' => 1]
+    );
 
-// przekierowanie do akcji w kontrolerze, z paramewrteem lub bez
-use App\Http\Controllers\HomeController;
-return redirect()->action([HomeController::class, 'index']);
-return redirect()->action(
-    [UserController::class, 'profile'], ['id' => 1]
-);
-
-RESPONSE 
--zwracanie widoku, wywołujemy funkcje reposnse
-która zwróci nam obiekt Response
+RESPONSE   
+-zwracanie widoku, wywołujemy funkcje reposnse, która zwróci nam obiekt Response
 i na nim wywołujemy metodię view
-return response()
-  ->view('user.profile, ['id' => $id], 200)
-  ->header('Content-Type', 'text/html')
-  ->header('Content-Type', 'text/plain') // brak parsowania - renderoeania tekty jako html. zostaną wyświetlnne tagi html tekstem
 
-JSON
+    return response()
+      ->view('user.profile, ['id' => $id], 200)
+      ->header('Content-Type', 'text/html')
+      ->header('Content-Type', 'text/plain') // brak parsowania - renderoeania tekty jako html. zostaną wyświetlnne tagi html tekstem
+
+JSON  
 mamy metodę wywoływaną na obiekcie Response
 funkcja response zwraca obiekt Response i wykonujemy na nij jakieś akcje
-return response->json(['id' => $id]);
 
-
-
+    return response->json(['id' => $id]);
 
 ## VIEW
 
