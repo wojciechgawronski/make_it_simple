@@ -309,12 +309,12 @@ a co jesli ktoś się do nas podbnija 30razy na minutę?
   **php artisan route:clear**
   // rm /bootstrap/cache/routes-v7.php
 
-GET - tylko pobranie danych z serwera, nie powinno nic się zmienić  
-POST - dodanie obiektu  
-PUT aktualizacja całego obiekt  
-PATCH - aktualizacja część pól (jednego/więcej)  
-DELETE - usuwanie obierktu  
-OPTIONS - zwraca opcje powiazane z danym URLem - ZASOBEM  
+GET – tylko pobranie danych z serwera, nie powinno nic się zmienić  
+POST – dodanie obiektu  
+PUT – aktualizacja całego obiekt  
+PATCH – aktualizacja część pól (jednego/więcej)  
+DELETE – usuwanie obierktu  
+OPTIONS – zwraca opcje powiazane z danym URLem - ZASOBEM  
 
 **arrow function** funkcje styrzałkowe, od 7.4 PHP
 
@@ -598,158 +598,163 @@ Blade:
 - eskejpowanie jest domyślne, jak nie - musimy się mocno zastanowić, czy jestemy w stanie zaufać tym danym?
 
 **@include('site_elements.form-input)**
-szablon includowany ma dostępo do wszystkich zmiennych rodziaca
-lepiej jest/dobrze jest przekazywać dane
-**@include('site_elements.form-input, ['userData' => $user])**
-@php
-  natywny kod php, $j++;
-@endphp 
-sherowwanie / współdzielenie zmiennych widokowych:
-, które są wspólne dla wszystkich widoków
-AppServiceProvider
-use Illuminate\Support\Facades\View;
+szablon includowany ma dostęp do wszystkich zmiennych rodziaca
+lepiej jest/dobrze jest przekazywać dane  
+**@include('site_elements.form-input, ['userData' => $user])**  
 
-public function boot()
-{
-view()->share('klucz_a_app_service_provider', 'wartość widoczna w szablonach');
-View::share('klucz_z_fasady', 'klucz z fasady');
+    @php
+      natywny kod php, $j++;
+    @endphp 
+    <?php 
+      print 1;
+    ?>
 
-}
+
+Sherowwanie / współdzielenie zmiennych widokowych, które są wspólne dla wszystkich widoków
+
+    AppServiceProvider
+    use Illuminate\Support\Facades\View;
+
+    public function boot()
+    {
+      view()->share('klucz_a_app_service_provider', 'wartość widoczna w szablonach');
+      View::share('klucz_z_fasady', 'klucz z fasady');
+
+    }
+
 **można ją nadpisać zmiewnną z pozopmu akcji o tej samej nazwie**
 
-KOMPILACJA
-dev: kompilowanie szablonu ma znaczenia
-na prodzie: szablony powinny być skeszowane PERFORMANCE
+KOMPILACJA  
+
+dev: kompilowanie szablonu ma znaczenia  
+na prodzie: szablony powinny być skeszowane: PERFORMANCE  
 **php artisan view:cache**
-CI
-recznie
-Pipeliny..
-należy odpalić komendę
-**php artisan view:cache**
-/storage/framework/views/ ...
-spaghetti..
-wyczyszczenie cacha:
-**php artisan view:clear**
 
-@show = @endsection + @yield
+CLI / recznie:  
+**php artisan view:cache**  
+/storage/framework/views/ ...  
+spaghetti..  
+wyczyszczenie cacha:  
+**php artisan view:clear**  
 
-@section('title', 'ho')
-@yield('title') → jednolinijkowy: @section('title', 'ho')
+@show = @endsection + @yield  
 
-**PARENT**
-sekcja z dziecka nadpisuje sekcje rodzica
-podobnie jak metody/kontroktory w klasach
-w php:
-::parent
-blade:
-@parent
+@section('title', 'ho')  
+@yield('title') → jednolinijkowy: @section('title', 'ho')  
+
+**PARENT**  
+
+sekcja z dziecka nadpisuje sekcje rodzica, podobnie jak metody/kontroktory w klasach  
+w php: **::parent**  
+blade:  **@parent**
 
 wstrzykiwanie: {{ $zmienna }} DWA NAWIASY ZAPOBIEGAJĄ XSS
 JS I CSS
 $zmienna = <b>aaa</b>
 
-{!! bez escejpowania !!} :( :(
-<script>alert('wykladniecie cieasteczek, podszycie się pod użytkownika)</script>
+{!! bez escejpowania !!} :( :(  
 
-@if ($user->wiek > 33)
-...
-@elseifu
-    mmm
-@else
-  ccc
-@endif
+    <script\>alert('wykladniecie cieasteczek, podszycie się pod użytkownika')<\/script>  
 
-@isset($name)
-  ...
-@endisset
+    @if ($user->wiek > 33)  
+      ...  
+    @elseif  
+        mmm  
+    @else  
+      ccc  
+    @endif  
 
-@auth
-  jesteśmy zalogowani, po autoryzacji
-@endauth
+    @isset($name)  
+      ...  
+    @endisset  
 
-@guest
-  użytkownik nie jest zalogowany, przeciwieństwo auth
-@endguest
+    @auth  
+      jesteśmy zalogowani, po autoryzacji  
+    @endauth  
 
-->name('get.user.show');
-;-)
-<a href="{{ 
-  route('get.user.show', [
-    'userId' => $user->id
-  ]) 
-}}"></a>
-https://laravel.com/docs/8.x/blade
+    @guest  
+      użytkownik nie jest zalogowany, przeciwieństwo auth  
+    @endguest  
+
+    ->name('get.user.show');
+
+    <a href="{{ 
+      route('get.user.show', [
+        'userId' => $user->id
+      ]) 
+    }}"></a>
+
+https://laravel.com/docs/8.x/blade  
 Loop Variable
 
-@for($i = 0; count($users); $i++)
-  {{ $user->name }} <br>
-  @if($i == 1)
-    @continue
-  @endif
+    @for($i = 0; count($users); $i++)
+      {{ $user->name }} <br>
+      @if($i == 1)
+        @continue
+      @endif
 
-  // kró→cej:
-  @continue($i == 4)
-  @break($i == 4)
+      // kró→cej:
+      @continue($i == 4)
+      @break($i == 4)
 
-  @if($i == 4)
-    @break
-  @endif
+      @if($i == 4)
+        @break
+      @endif
 
-@endfor
+    @endfor
 
-@foreach
-  @if ($loop->firs)
-    <p>first ;-)</p>
-  @endif
-  @if ($loop->last)
-    <p>first ;-)</p>
-  @endif
-  {{ $user->name }} <br>
-@endforeach
-
-
-@forelse($users as $user)
-  {{ $user->name }} <br>
-@empty
-  <p>empty</p>
-@endforelse
+    @foreach
+      @if ($loop->firs)
+        <p>first ;-)</p>
+      @endif
+      @if ($loop->last)
+        <p>first ;-)</p>
+      @endif
+      {{ $user->name }} <br>
+    @endforeach
 
 
-{{ $j = 0 }}
-@while ($j < count($users))
-  {{ $j++ }}
-@endwhile
+    @forelse($users as $user)
+      {{ $user->name }} <br>
+    @empty
+      <p>empty</p>
+    @endforelse
 
 
-@each('view.name', $jobs, 'job')
-each - działa troszeczkę jak array_map:
-przechodzi po wszytkich elementach kolekcji, przyjmuje argumenty
+    {{ $j = 0 }}
+    @while ($j < count($users))
+      {{ $j++ }}
+    @endwhile
+
+    @each('view.name', $jobs, 'job')
+each - działa troszeczkę jak array_map:  
+przechodzi po wszytkich elementach kolekcji, przyjmuje argumenty  
 - nazwę renderowanego szablony 
 - $jobs - kolelkcja po której irerujemy
 - nazwa zmiennej
-działa jak forelse, jest skumulowane do jednej lini.. czy jest to bardzei czytelne.. wątpię
+działa jak forelse, jest skumulowane do jednej lini.. czy jest to bardzei czytelne.. wątpię  
 
 **switch - składnia to nie jest RocketSince**
-@switch($i)
-    @case(1)
-        First case...
-        @break
+    @switch($i)
+        @case(1)
+            First case...
+            @break
 
-    @case(2)
-        Second case...
-        @break
+        @case(2)
+            Second case...
+            @break
 
-    @default
-        Default case...
-@endswitch
+        @default
+            Default case...
+    @endswitch
 
-Laravel mix
-**webpack.mix.js**
 
-Laravelowa nakładka na Webpacka
-Webpack - pozwala połczącyć wiele plików w jeden plik
+Laravel mix: **webpack.mix.js**
+
+Laravelowa nakładka na Webpacka  
+→ Webpack - pozwala połczącyć wiele plików w jeden plik  
 → performance: trwa dłużej, obciąża bardziej serwer
-jeden request, nawiązanie połączenia tylko raz
+jeden request, nawiązanie połączenia tylko raz  
 → kompilaca do ES5, EcmaScriopt5
 
 scss
@@ -758,31 +763,32 @@ scss
 - skomplikowane selectory
 - funkcje (calc(), lighteen(), dark())
 
-**npm run dev** - na serwerach developerskich
-**npm run production** - zapis bardzoej zwięzły, na serwerach produkcyjnych
-> i przez ftp ... na produkcję
+**npm run dev** - na serwerach developerskich  
+**npm run production** 
+> zapis bardzoej zwięzły, na serwerach produkcyjnych  
+> i przez ftp ... na produkcję  
 **npm run watch**
 
-<script src="{{ mix('/js/app.js') }}"></script>
-<script src="{{ asset('/js/app.js') }}"></script>
+\<script src="{{ mix('/js/app.js') }}">\</script>  
+\<script src="{{ asset('/js/app.js') }}">\</script>  
 
 *Wielu programistów dodaje do swoich skompilowanych zasobów sygnaturę czasową lub unikalny token, aby zmusić przeglądarki do załadowania nowych zasobów zamiast udostępniania starych kopii kodu. Mix może to automatycznie obsłużyć za pomocą versionmetody.*
 
-mix.js('resources/...', 'public..')
-  .sass(''resources/...', 'public..'')
-  .sass(''resources/sass/admin.scss', 'public/css/admin')
-  .less('resources/...', 'public..')
-  .styles([
-    'resources/...', 'public..',
-    'resources/...', 'public..'
-    ''resources/...', 'public..'
-  ], 'public/css/css.css')
-  **version()**
-;
-// lepiej: dodajmy tokeny tylko na produkcji
-if (mix.inProduction()) {
-  mix.version();
-}
+    mix.js('resources/...', 'public..')
+      .sass(''resources/...', 'public..'')
+      .sass(''resources/sass/admin.scss', 'public/css/admin')
+      .less('resources/...', 'public..')
+      .styles([
+        'resources/...', 'public..',
+        'resources/...', 'public..'
+        ''resources/...', 'public..'
+      ], 'public/css/css.css')
+      **version()**
+    ;
+    // lepiej: dodajmy tokeny tylko na produkcji
+    if (mix.inProduction()) {
+      mix.version();
+    }
 
 WERSJONOWANIE:  **version()**
 timestamp(), token - dodanie do pliku nazwy by pobrac zasze świeże pliki CSS/JS
@@ -790,65 +796,64 @@ timestamp(), token - dodanie do pliku nazwy by pobrac zasze świeże pliki CSS/J
 
 
 **CI/CD = AUTOMATYCZNY DIPLOY**
-CI/CD -dożucenie tej komendy do pipeline
-PipleLine** - zbiór KOMND / kroków które trzeba wykonać aby kod dostał się na SERWER (produkcje)
+CI/CD -dożucenie tej komendy do pipeline  
+**PipleLine** - zbiór KOMND / kroków które trzeba wykonać aby kod dostał się na SERWER (produkcje)
 Sytem do deployu bierze kod z repo
 automatycznie odpala
 - composer update
 - composer install
 - uruchamia testy
 - npm run prod
-i automatycznie diplojuje i wrzuca kod na serwer
+- i automatycznie diplojuje i wrzuca kod na serwer
 
 
-**BROWSER SYNC**
-automacztycznie przeładowanie zmian 
+**BROWSER SYNC** automacztycznie przeładowanie zmian : 
 - kody frontu
 - kodu php 
-
-mix.browserSync('127.0.0.1:8000');
-
+- mix.browserSync('127.0.0.1:8000');
 
 
 ## Konfiguracja
 **env ustala jakiś DevOps i zwykły developer na produkcji go nie dotyka**
 **.env do .gitignore**
 
-3 środowiska
-prod / test / dev
-production / stageging / local
+3 środowiska:  
+**prod / test / dev**  
+**production / stageging / local**
 
-1. konfiguracja
-czytelne nazewnicto, notacja klucz - wartość, pogrupowana;
-cache:
-/config/cache.php
-2. zmienne środowiskowe
+1. Konfiguracja:  
+czytelne nazewnicto, notacja klucz - wartość, pogrupowana;  
+cache:/config/cache.php
+2. Zmienne środowiskowe  
 .env
-odczytujemy je za poimocą funkcji env*()
+odczytujemy je za poimocą funkcji env()
 env() używamy tylko w katalogu config, 
-  poza tym katalogiem (modle, providery, kontrollery: config())
-  **najlepiej jest ją wstrzykiwać**
-  → pliki konfiguracyjne są cachowane: konkatenuje pliki env w jeden du≥zy i zapisuje w configu
-  → jeden punk wejśc ia
-aplikacja na produkcji jest na innym środowkiku niż developerska..
-inne dostępy do BD → różne Bazy Danych
-lokalnie zmieniamy strukturę BD - co.. produkcja nam nie działa?
+  poza tym katalogiem (midle, providery, kontrollery: config())
+  **najlepiej jest ją wstrzykiwać**  
+  → pliki konfiguracyjne są cachowane: konkatenuje pliki env w jeden du≥zy i zapisuje w configu  
+  → jeden punk wejśc ia  
+aplikacja na produkcji jest na innym środowkiku niż developerska..  
+inne dostępy do BD → różne Bazy Danych  
+lokalnie zmieniamy strukturę BD - o.. produkcja nam nie działa?  
 
 dev:
 - na nim się developuje, rozwija bazę danych
 - wyłaczony cache
 - jawne printowanie błędów gdy nie chcemy za każdym razem grzebać w logach
 
-MOJA KONFIGURACJA:
-a. w pliku en.
-b. nowy plik /config/mojakonfiguracja.php
-    return [
-      'aaa' => 121,
-    ];
-c. w kontrolerze $zminna = config('mojakonfiguracja.aaa);\
+MOJA KONFIGURACJA:  
+a. w pliku en.  
+b. nowy plik 
 
-- toolbar Laravelowy (debugbar;)) 
-- własna baza danych: testy wpływają nam na dane, które są na prodzie
+    /config/mojakonfiguracja.php  
+    return [  
+      'aaa' => 121 ,  
+    ];  
+
+c. w kontrolerze $zminna = config('mojakonfiguracja.aaa);  
+
+Toolbar Laravelowy (debugbar;))   
+Własna baza danych: testy wpływają nam na dane, które są na prodzie
 
 na:
 - Vagrancie
@@ -856,7 +861,7 @@ na:
 
 prod: 
   - budowanie assetów (minifikacja, łączenie)
-  - wyłaczenie profilerów (npdeveloper toolbar)
+  - wyłaczenie profilerów (np developer toolbar)
   - własny cache
   - wyłączenie printowania błędów
   - własna baza danych
@@ -864,10 +869,11 @@ prod:
     → płatności opłacone
     → panel PayPall oþłacone
 
-**dd(config());**
-kluczami będa nazwy plików z katalogu test
-konfiguracja sekcji:
-#config = dd(config('app.name.coklowiek));
+**dd(config());**  
+kluczami będa nazwy plików z katalogu test  
+konfiguracja sekcji:  
+
+    $config = dd(config('app.name.coklowiek));
 
 ## Sesje
 - dostęp poprzez helper session(), funkcja globalna, zaśmiecamy kontekst
@@ -881,33 +887,30 @@ stan aplikacji nie jest przekazywany.
 za każdym razem przeglądarka wysyła ciasieteczko do serwera
 - i serwer potrafi zweryfikować po ID że ktoś np był zlgogowany, więc jestw stanie idtworzyć stan aplikacji
 
-sesje moga storygować dane w bazie danych
+! Sesje moga storygować dane w bazie danych
 
-public function index () {
-$session->put('prevAction', __METHOD__ . ' : ' . time());
+    public function index () {
+    $session->put('prevAction', __METHOD__ . ' : ' . time());
 
-public function show () {
-$prevAction = $request->session()->get('prevAction', 'default');
+    public function show () {
+    $prevAction = $request->session()->get('prevAction', 'default');
 
-$request->session()->put('test', null);
-dump($request->session()->has('test')); // false
-dump($request->session()->exists('test')); // true
+    $request->session()->put('test', null);
+    dump($request->session()->has('test')); // false
+    dump($request->session()->exists('test')); // true
 
-$request->session()->forget('test')); // usuwa dany klucz razem z wartością sesji
+    $request->session()->forget('test')); // usuwa dany klucz razem z wartością sesji
 
-$request->session()->flush(); // usunięcie zmiennych sesyjnych
+    $request->session()->flush(); // usunięcie zmiennych sesyjnych
 
-helper session
-$prevAction = session('prevAction');
-dd($teprevActionst);
+    helper session
+    $prevAction = session('prevAction');
+    dd($teprevActionst);
 
-PROBLEMY:
-session() to funkcja globalna, dostępna wszęszie - problemy z mockowaniem i z testami, zaśmiecamy kontekst
-
+PROBLEMY:  
+session() to funkcja globalna, dostępna wszęszie - problemy z mockowaniem i z testami, zaśmiecamy kontekst  
+ROZWIĄZANIE:  
 uzywajmy session przez Request, wstrzykujmy tam dane, bo one żyja tylko w jednym requeście
-
-
-
 
 ## Baza_Danych
 - PDO, mysqli
@@ -916,107 +919,107 @@ uzywajmy session przez Request, wstrzykujmy tam dane, bo one żyja tylko w jedny
 - seeding - automatyczne wypełnianie BD przykładowymi danymi
 - Eloqient: ORM
 
-**Redis:**
-ciężkie zapytania do bd można cachwać, i podbijać do redisa
-casche trxeba invalidować
-szybki storage ktróry działa na zasadzie klusz czwertość
-nazwa_tabeli - wiersz_który_chcemy_pobrać
-do wyciągania danych z R nie używamy sqla
+**Redis:**    
+- ciężkie zapytania do bd można cachwać, i podbijać do redisa
+- cache trzeba invalidować    
+- szybki storage ktróry działa na zasadzie klucz wartość
+- nazwa_tabeli - wiersz_który_chcemy_pobrać
+- do wyciągania danych z R nie używamy sqla
 
 **sqlite**
-baza danych plikowa
-nie trzeba nic instalować na lokalnej maszynie. serwera bazodanowy (mysql, postres)
-wydajność pliku jest niższa niż mysql/postgres 
+- baza danych plikowa
+- nie trzeba nic instalować na lokalnej maszynie. serwera bazodanowy (mysql, postres)
+- wydajność pliku jest niższa niż mysql/postgres 
 
-wikiepdia używa mysqla
+Wikiepdia używa mysqla ;-)  
 
-php artisan tinker;
-\DB::connection()->getPdo();
+    php artisan tinker;
+    \DB::connection()->getPdo();
 
-lub w kontrollerze
-$db = \DB::connection()->getPdo();
-dd($db);
+    lub w kontrollerze
+    $db = \DB::connection()->getPdo();
+    dd($db);
 
 MIGRACJE
 Pipeline
 CI/CD
 → migracja na produkcji
 
-można porównać do gita; tam tworzysz repo do ktorego wgrywamy kolejne werjsie kodu i ten kod wersjpnuje
-tworzy wersje
-można się przełączać pomiędzy wersjami; można rozwijać starsze wersje
-dzięki temu można śledzić rozwój aplikacji i współdzielić kod między 
+można porównać do gita; tam mamy repo do ktorego wgrywamy kolejne werjsie kodu i ten kod się wersjonuje  
+- tworzy wersje 
+- można się przełączać pomiędzy wersjami;
+- można rozwijać starsze wersje
+- dzięki temu można śledzić rozwój aplikacji i współdzielić kod między 
 
 migracje rozwiązują problem wersjonowania bazy danych
 - dodanie nowej tabeli/kolumny
-tworzysz encje
-kod ląduje na gicie
-kolega zaciąga zmiany, ale nie ma zmiany w bd - próbuje odczytać dane z kolumny która nie istnije
-powstała wersja która nie jest rozpropagowana. Migracje - kod który zaciągamy
-każda zmiana struktury BD jest zapisana w pliku migracji
-i odoalamy polecenie artidanowe:
-**git pull**
-**php artisan migrate**
-**php artisan migrate:rollback**
-**php artisan migrate:status**
-notacja snake_case, a klasa to CamelCase
-**php artisan make:migration create_games_table**
-**php artisan migrate:status**
-batch (partia. wsad)
-rollback rollbakuje tabele w kolejności od nowiększej liczby w kolumnie batch, tabele z taką samą liczbą
+- tworzysz encje
+- kod ląduje na gicie
+- kolega zaciąga zmiany, ale nie ma zmiany w bd - próbuje odczytać dane z kolumny która nie istnije
+- powstała wersja która nie jest rozpropagowana. Migracje - kod który zaciągamy
+- każda zmiana struktury BD jest zapisana w pliku migracji
+i artisan:
 
-każda zmiana bd jest zapisana w pliku poprzez specjal;ną phpową składnię
+
+    **git pull**  
+    **php artisan migrate**  
+    **php artisan migrate:rollback**  
+    **php artisan migrate:status**  
+    notacja snake_case, a klasa to CamelCase  
+    **php artisan make:migration create_games_table**  
+    **php artisan migrate:status**  
+    
+batch (partia. wsad)  
 jest wersjonowana
 
-mamy sqlite ale chcemy mysql
-public function up()
-{
-    // Schema::create('games', function (Blueprint $table) {
-    Schema::connection('mysql')->create('games', function (Blueprint $table) {
-    });
-  
-    Schema::rename('games', 'gamesssss');
+    //mamy sqlite ale chcemy mysql
+    public function up()
+    {
+        // Schema::create('games', function (Blueprint $table) {
+        Schema::connection('mysql')->create('games', function (Blueprint $table) {
+        });
+      
+        Schema::rename('games', 'gamesssss');
 
-    if(Schema::hasTable('games')){
-        // wykonaj jakąś logikę
-    }
-
-
-public function down()
-{
-    Schema::dropIfExists('games'); // better
-    <!-- Schema::drop('games'); -->
-
-$table->string('title', 100)
-    ->nullable() // ta kolumna może posiadać wartość null
-    ->charset(utf8mb4); // po co ?
-    ->unsigned() // ? w kontekście tringa nie ma sensu
+        if(Schema::hasTable('games')){
+            // wykonaj jakąś logikę
+        }
 
 
-**git commit -m "..."**
-**git push**
-zmiana?
+    public function down()
+    {
+        Schema::dropIfExists('games'); // better
+        <!-- Schema::drop('games'); -->
+
+    $table->string('title', 100)
+        ->nullable() // ta kolumna może posiadać wartość null
+        ->charset(utf8mb4); // po co ?
+        ->unsigned() // ? w kontekście tringa nie ma sensu
+
+
+**git commit -m "..."**  
+**git push**  
+zmiana?  
 **php artisan make:migration alter_games_table**
 
-make ;-)
-php artisan make:command
-php artisan make:controller
-php artisan make:factory
-php artisan make:mail
-php artisan make:migration
-php artisan make:seeder
-php artisan make:test
+make ;-)  
+php artisan make:command  
+php artisan make:controller  
+php artisan make:factory  
+php artisan make:mail  
+php artisan make:migration  
+php artisan make:seeder  
+php artisan make:test  
 
-**session storage z sessji do database ?**
-;)
-automatyczne tworzenie tabeli
-**php artisan session:table**
-php artisan migrate:status;
-php srtisan migrate;
-from
-SESSION_DRIVER=file
-to 
-SESSION_DRIVER=database
+**session storage z sessji do database ?** ;)    
+automatyczne tworzenie tabeli  
+**php artisan session:table**  
+php artisan migrate:status;  
+php srtisan migrate;  
+from  
+SESSION_DRIVER=file  
+to   
+SESSION_DRIVER=database  
 
 PRZETRZYMYWANIE sessji w BD jest szybsze niż w pliku
 a najszybsze będą pamięciowe: MameCache, Redis
@@ -1027,56 +1030,55 @@ QueryBuider
 Select → where (+updaty i dility)
 Implementacjia Akcji i widoków
 
-php artisan make:migration create_genres_table
-php artisan make:migration alter_game_table
-php artisan migrate
+    php artisan make:migration create_genres_table
+    php artisan make:migration alter_game_table
+    php artisan migrate
 
 w kontrollerze
-// wyczyszczenie bazy danych, resetuje PrimaryKey; przywrscs tabelę do stanu po migracji
-DB::table('genres')->truncate();
-// uzuwa zawartość tabeli, ale nie usuwa klucza głównego
-// DB::table('genres')->delete();
 
-Laravel's database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application and works perfectly with all of Laravel's supported database systems.
+    // wyczyszczenie bazy danych, resetuje PrimaryKey; przywrscs tabelę do stanu po migracji
+    DB::table('genres')->truncate();
+    // uzuwa zawartość tabeli, ale nie usuwa klucza głównego
+    // DB::table('genres')->delete();
 
-The Laravel query builder uses PDO parameter binding to protect your application against SQL injection attacks. There is no need to clean or sanitize strings passed to the query builder as query bindings.
+*Laravel's database query builder provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations in your application and works perfectly with all of Laravel's supported database systems.*
 
-public function index()
-{
-    $users = DB::table('users')->get();
+*The Laravel query builder uses PDO parameter binding to protect your application against SQL injection attacks. There is no need to clean or sanitize strings passed to the query builder as query bindings.*
 
+    public function index()
+    {
+        $users = DB::table('users')->get();
+    }
 
+    $id = DB::table('genres')->insertGetId(
+        [
+            'name' => 'woj3',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]
+    );
 
-$id = DB::table('genres')->insertGetId(
-    [
-        'name' => 'woj3',
-        'created_at' => Carbon::now(),
-        'updated_at' => Carbon::now(),
-    ]
-);
+    dd($id);
 
-dd($id);
-
-**SEEDERS**
-→ konwencja: w jednym Seederze dane odpoweidzialne za jedną tabel UserSeeder
-a. użyteczne: ktoś to raz napisał i każdy może z tego korzystać
+**SEEDERS**  
+→ konwencja: w jednym Seederze dane odpoweidzialne za jedną tabel UserSeeder  
+a. użyteczne: ktoś to raz napisał i każdy może z tego korzystać  
 b. dane toestowe na poczet Testów Automatycznych (lub ręcznych), ciężko by było, gdy budujemy śropdowisko testowe ręcznie wrzucać jakieś dane.
-automatyczne uzupełnianie BD 
-c. tawianie nowego środowiska
-d. w BD jest za dużo śmieci lokalnie - czyścimy ją i odpalamy Seedery
+automatyczne uzupełnianie BD   
+c. tawianie nowego środowiska  
+d. w BD jest za dużo śmieci lokalnie - czyścimy ją i odpalamy Seedery  
 
 **php artisan make:seeder GenresSeeder**
-seedy uruchamia się przez Głowny Seeder, Rodzic
-i tam się rejetruje seedy
-$this->call(GenresSeeder::class);
+seedy uruchamia się przez głowny seeder: DatabaseSeeder
+i tam się rejetruje seedy:
 
-php artisan db:seed
+    $this->call(GenresSeeder::class);
+    php artisan db:seed
 
-Decyzja:
-czy seedy uruchamiamy tylko raz, podczas inicjalizacji?
-
-Czy podczas development?
-Czy czyścimy tabelę za każdym razem ?
+Decyzja:  
+- czy seedy uruchamiamy tylko raz, podczas inicjalizacji?  
+- Czy podczas development?  
+- Czy czyścimy tabelę za każdym razem ?  
 
 pojedyńczy seed
 najlepiej robić to w jedną 
@@ -1085,49 +1087,49 @@ najlepiej robić to w jedną
 optymalizacja:
 a. pętla w pętli
 skrypty do importu - do zaakcepowania
-a. pętla w pętli
 w obsłudze requestu od użytkownika: nie generowanie ciężkich operacji, i wydłuża to czas odpowiedzi użytkownikowi
 
 1. wygenerowanie arrajki 1000 elementów
-\i wsadzenie ich w seedzie w jednym połączeniu
-a nie 1000 połączeń z bazą danych
+> i wsadzenie ich w seedzie w jednym połączeniu  
+> a nie 1000 połączeń z bazą danych
+***
 
-
-ZMIANY W BAZIE DANYCH 
-NIE MODYFIKUJEMY PLIKÓW Z MIGRACJAMI
+ZMIANY W BAZIE DANYCH   
+NIE MODYFIKUJEMY PLIKÓW Z MIGRACJAMI  
 **TYLKO TWORZYMY NOWE**
 
 ## SQL
 
 **JOIN **
-Lefr: jakby zapytanie w jednej lini
+Left: jakby zapytanie w jednej lini
 AS - czy wszystkie wyciągane wartości maią aliasy?
 .PREFIX wszystkie wyciągane wartości mają prefixowaną tabelę
 
 **Bulider/Chain**: za każdym razem metoda zwraca instancę (returnuje this) i dzięki temu możemy wykonywać kolejną metodę
 
-**Kolekcja**: obiekt w php który posiada zbbiór danych po których możemy iterować. Tablica;)
+**Kolekcja**: obiekt w php który posiada zbiór danych po których możemy iterować. Tablica;)
 
 **Klucz obcy** trzyma referencje/wskazuje na klucz główny w innej tabeli
 Klucz główny jednoznacznie identyfikuje wiersz w tabeli
 
-$game = new Game();
-$game = (array) $game; → zrzutowanie obiektu game na tablicę game
+    $game = new Game();
+    $game = (array) $game; // rzutowanie obiektu game na tablicę game
 
 **Fubnkcje agregujące**: to nie statystyki, ale na zbiorze danych wykonują pewną funkcję - agregują dane i zwracają ostateczną wartość
 
 **Having**
-tak jakby where, operuje na wynikach, ale po zgrupowaniu
+podobne do where, operuje na wynikach, ale po zgrupowaniu
 
 ## Query_Builder
 za każdym razem zwracane jest THIS dlatego można robić PIPELINE
 ostania metoda to GET() - gdzie następuje egzekucja zapytania
 
 
-dd($bestGames->toJson());
+    dd($bestGames->toJson());
 
-dd($bestGames->toSql());
-*select "games"."id", "games"."title", "games"."score", "genres"."name" as "genre_name", "genres"."id" as "genre_id" from "games" inner join "genres" on "games"."genre_id" = "genres"."id" where "score" > ? ◀"*
+    dd($bestGames->toSql());
+    *select "games"."id", "games"."title", "games"."score", "genres"."name" as "genre_name", "genres"."id" as "genre_id" from "games" inner join "genres" on "games"."genre_id" = "genres"."id" where "score" > ? ◀"*
+
 **?**
 to sql działa przed zbindowaniem danych z zapytania
 więc tam wejdzie bindowanie danych z Escapowaniem
@@ -1136,63 +1138,62 @@ Eloquent:
 nie parsowanie sqla:
 DB::raw();
 
-$groupByStats = DB::table('games')
-    ->select(
-        DB::raw('count(*) as count'), 
-        'score')
-    ->whereBetween('score', [98,100])
-    ->groupBy('score')
-    ->orderByDesc('score')
-    ->get()
-;
-dd($groupByStats);
+    $groupByStats = DB::table('games')
+        ->select(
+            DB::raw('count(*) as count'), 
+            'score')
+        ->whereBetween('score', [98,100])
+        ->groupBy('score')
+        ->orderByDesc('score')
+        ->get()
+    ;
+    dd($groupByStats);
 
 **orderujemy po funkcji agregującej która jest aliasem, właściwie to po aliasie**
 **sprawdzamy sqlkę komentyjąc get() i używając 
 
-$groupByStats = DB::table('games')
-    ->select(
-        DB::raw('count(*) as count'), 
-        'score')
-    ->whereBetween('score', [90,100])
-    ->having('score', '>', 95)
-    ->groupBy('score')
-    ->orderByDesc('score')
-    ->orderBy('count', 'asc')
-    // ->get()
-;
-dd($groupByStats->toSql());
+    $groupByStats = DB::table('games')
+        ->select(
+            DB::raw('count(*) as count'), 
+            'score')
+        ->whereBetween('score', [90,100])
+        ->having('score', '>', 95)
+        ->groupBy('score')
+        ->orderByDesc('score')
+        ->orderBy('count', 'asc')
+        // ->get()
+    ;
+    dd($groupByStats->toSql());
 
 **PAGINACJA**
-artisan wygeneruje w widokach (resources/view) kilka widoków które można zaimplementować
-https://laravel.com/docs/8.x/pagination#using-bootstrap
-php artisan vendor:publish --tag=laravel-pagination
-
+artisan wygeneruje w widokach (resources/view) kilka widoków które można zaimplementować  
+https://laravel.com/docs/8.x/pagination#using-bootstrap  
+php artisan vendor:publish --tag=laravel-pagination  
 
 ## Eloquent
-Object Relational Maping, 
-**mapowanie - proces mapowania czyli odwsorowania czegoś na coś**
-obiekty na strukturę BD
-struktórę BD na obiekty
-W DWIE  STRONY
-**WIERSZ Z RELACYJNEJ BAZY DABYCH Z RELACJAMI NA OBIEKT**
+Object Relational Maping,   
+**mapowanie - proces mapowania czyli odwzorowania czegoś na coś**
+- obiekty na strukturę BD
+- struktórę BD na obiekty
+- W DWIE  STRONY
+**WIERSZ Z RELACYJNEJ BAZY DABYCH Z RELACJAMI NA OBIEKT**  
 
 **przekazanie modeli eloquentowych do widoku - bardzo ostrożnie**
 **aby nie wytrigerować sobie JAKIEJŚ PĘTLI ZAPYTAŃ DO BAZY DANYCH**
 
-Blog: Wpis
-może mieć wiele komentarzy, jeden do wielu
-Komentarz: relacja jeden do jednego
-Operacje na danych
-Relacje
-Blog ma tytuł i jest unikalny
-Biblioteka: Książka ma tytuł i nie jest unikalna 0- wiele wydan tej samej ksiązki
+Blog: Wpis  
+może mieć wiele komentarzy, jeden do wielu  
+Komentarz: relacja jeden do jednego  
+Operacje na danych  
+Relacje:  
+Blog ma tytuł i jest unikalny  
+Biblioteka: Książka ma tytuł i nie jest unikalna - wiele wydan tej samej ksiązki
 
-Laravel: Eloquent implementuje wzorzec ActiveRecord
-RÓŻNICA
-Doctrine: implementuje  Wzorzec DataMapper
-Doctrine może działać niezależnie od Symfony
-Biblioteka Artisan nie. Musi być powiązana z laravelem 
+Laravel: Eloquent implementuje wzorzec ActiveRecord  
+RÓŻNICA  
+Doctrine: implementuje  Wzorzec DataMapper  
+Doctrine może działać niezależnie od Symfony  
+Biblioteka Artisan nie. Musi być powiązana z Laravelem   
 
 Eloquent
 + mapowanie
@@ -1202,26 +1203,31 @@ Eloquent
 + Es-kej-powanie danych, zwalnia ze znajomości SQL
 **SQL: inserty, updajty, dility, indeksy, tabela i relacje**
 + database agnostic,
-+ migracje - zmienianie BD
-ZMIANA STRUKTURY BD: 
-w większości przypadków zmiana schematu przekłada się na zmianę modelu
++ migracje - zmienianie BD  
+ZMIANA STRUKTURY BD:   
+w większości przypadków zmiana schematu przekłada się na zmianę modelu  
 - w klasie Autor można zmenić alias na nową nazwę kolumny, dzięki temu nie trzeba zmieniać implementacji w kodzie
 - lub w całym kodzie zmienić nazwę zmiennej
 
-nauka Eloquenta
+**Eloquent**:   
 narzut wydajnościowy: proces mapowania* zajmuje
-czas, pamić i zasoby
+- czas, 
+- pamić 
+- i zasoby
+
 *MAPOWANIE czyli budowania obiektów z relacjami*
 przetwarzanie setek tysięcy/miliony rekordów:
 - użycie zwykłych zapytań (wyciągamy tylko to co potrzebyjemy)
 - **użycie quweryBuildera do mapowania danych**
-SYSTEMY DO RAPORTÓW: SUROWE ZAPYTANIA
-NAJLEPIEJ TO ZBENCHMARKOWAĆ NA DUŻEJ ILOŚCI DANYCH (ILOŚCI KTÓRE B EDZXIEMY PRZETWARZAĆ)
+
+SYSTEMY DO RAPORTÓW: SUROWE ZAPYTANIA  
+NAJLEPIEJ TO ZBENCHMARKOWAĆ NA DUŻEJ ILOŚCI DANYCH (ILOŚCI KTÓRE BEDZIEMY PRZETWARZAĆ)
 
 PROSTE ZAPYTANIA:
 - wyciągnij dane na podstawie id
 - prostych qerów
-- połącz w relacje z inną tabelą
+- połącz w relacje z inną tabelą  
+
 SKOMPLIKOWANE ZAPYTANIA:
 - wiele joinów
 - innerjonów
@@ -1232,168 +1238,162 @@ SKOMPLIKOWANE ZAPYTANIA:
 **developer toolbar bardzo pomaga**
 **znajomość sqla jest na plus - łatwość weryfikacji zapytania które wygenerował Eloquent**
 
-ACTIVE RECORD
-łamie S z SOLIDA
+ACTIVE RECORD: łamie S z SOLIDA
 1. jednocześmie operujemy na danych
 2. obiekt na którym opwerujemy ma w sobie zaszytą logikę do zapisu tych danych (kontakt z bazą danych: updejty, inserty, zapisywanie)
 
 Doctrine: DataMapper: separacja operowania na danych od zapisu/aktualizacji danych
 
-Eloquent
-Możemy używać QueryBuildera
+**Eloquent**: Możemy używać QueryBuildera
 
-MODEL
-klasa modelu odpowiada danych z jednej tabeli
+**MODEL**: klasa modelu odpowiada danych z jednej tabeli
 
-PROJEKTOWANIE:
-nie od strony bazy danych
-ROZWIJANIE/PROJEKTOWANIE
-zacynamy od strony biznesowej
-→ analiza problemów jakie aplikacja ma rozwiązać
-→ czyli od strony domeny
-  dopiero gdy mamy obiekty (książki, relacje, autorzy)
-póżniej robimy tabelę i odpowiednie relacje
+PROJEKTOWANIE:  
+nie od strony bazy danych  
+ROZWIJANIE/PROJEKTOWANIE  
+zacynamy od strony biznesowej  
+→ analiza problemów jakie aplikacja ma rozwiązać  
+→ czyli od strony domeny  
+  dopiero gdy mamy obiekty (książki, relacje, autorzy)  
+póżniej robimy tabelę i odpowiednie relacje  
 
-**storage, przechowywanie danych to problem nad którym musimy się zmierzyć na późniejszym etapie**
-BD nie jest wyznacznikiem jak mają wyglądać kalsy naszych modeli (nasza aplikacja)
-TO nasze modele są wyznacznikiem tego jak będzie skonstruowana nasza baza danych
+**storage, przechowywanie danych to problem nad którym musimy się zmierzyć na późniejszym etapie**  
+BD nie jest wyznacznikiem jak mają wyglądać kalsy naszych modeli (nasza aplikacja)  
+TO nasze modele są wyznacznikiem tego jak będzie skonstruowana nasza baza danych  
 
-Klasa Model daje dostęp do BD,
-domyślną wł modelu jest to że zmienia nazwę klasy ma liczbę mnogą 
-PLURALIZUJE
-Game → games
-User → users
+Klasa Model daje dostęp do BD,  
+domyślną wł modelu jest to że zmienia nazwę klasy ma liczbę mnogą, **PLURALIZUJE**  
+Game → games  
+User → users  
 
-Query Bulider
+**Query Bulider**  
 zwraca **obiekt std class**, zawiera w sobie tylko dane
-zwraca więc **surowe dane**
+zwraca więc **surowe dane**  
 tak jak ręcznie generujemy zapytanie i decydujemy jakie joiny, whery.. Eloquent->magia
 
-Eloquent
-zwraca obiekt modelu
-zawiera dane i zachowania
-oraz relacje
-Poprzez Model możemy dobrać się także do buildera
+**Eloquent**  
+zwraca obiekt modelu  
+zawiera dane i zachowania  
+oraz relacje  
+Poprzez Model możemy dobrać się także do buildera  
 
-// Genre::all();
-// $games = Game::all();
-// $games = Game::select('*')
-//     ->orderByDesc('score')
-//     ->paginate(10);
-    // ->simplePaginate(10);
+    // Genre::all();
+    // $games = Game::all();
+    // $games = Game::select('*')
+    //     ->orderByDesc('score')
+    //     ->paginate(10);
+        // ->simplePaginate(10);
 
 **TOOLBAR**
 1. MONITORUJEMY JAKIE ZAPYTANIA IDĄ DO BD
 2. CZAS 
 3. EAGER LOADING: with('nazwa_relacji)
 
-// eager loading: with - nazwe relacji które chcemy pobrać„
-// $games = Game::with(['genre', 'movie.author', 'kilka_relacji', 'publisher'])
-// $game->autor->email
-// dociągniecie relacji autor która jest zdefiniowana w movie
 
-// pobranie od razu, ZACHŁANNIE: noracja kropkowa; odwołujemy się di relacji; pobieramy adres email autora gry
+        // eager loading: with - nazwe relacji które chcemy pobrać„
+        // $games = Game::with(['genre', 'movie.author', 'kilka_relacji', 'publisher'])
+        // $game->autor->email
+        // dociągniecie relacji autor która jest zdefiniowana w movie
+        // pobranie od razu, ZACHŁANNIE: noracja kropkowa; odwołujemy się di relacji; pobieramy adres email autora gry
 
-REFACTOR
+
+**REFACTOR**  
 przeglądanie TOOLBARA i sprawdzać czy ś zduplikowane zapytania
 
-// ta relacja jest niepotrzebna
-// nadmiar zdefiniowanych relacji zaśmieca aplikację©
-// a z bisnesowego punku widzenia nie jest potrzebna
-// nie potrzebujemy 2-stronnych relacji
-// jeśli będzxiemy potrzebować - wtedy jej użyjemy
+// ta relacja jest niepotrzebna  
+// nadmiar zdefiniowanych relacji zaśmieca aplikację©  
+// a z bisnesowego punku widzenia nie jest potrzebna  
+// nie potrzebujemy 2-stronnych relacji  
+// jeśli będzxiemy potrzebować - wtedy jej użyjemy  
 
-**LOCAL SCOPE**
-tylko w klasie modelu np Game
-obiekt builder, do filtrowania zapytań i przenoszenia Logiki z kontrollera
-do modelu
-→ reużywalność
-**GLOBAL SCOPE - jakaś funkcjonalność bez kontekttu którą moząn wstrzyknać;)**
-*w sumie dołączyć przez statyczną metodę booted*
-**można porównać go do Traitów (z phpa), za pomocą use.. można w nich korzystać**
-global scope można wstrzyknąć do modelu, 
-minus - każdy model który korzysta z GlobalScopu musi miec kolumnę zapidaną w global soupie
-a przy migracji zmienai się model, ale nazwa kolumny jest HARDKODOWANA W SCOPIE 
-trzeva to robić ręcznie – zmieniać kolumnę – i o tym pamiętać
-zbyt duża ilość globalnych scopów robi zamieszanie i trudno będzie nam debugować cokolwiek
+**LOCAL SCOPE**  
+tylko w klasie modelu np Game  
+obiekt builder, do filtrowania zapytań i przenoszenia Logiki z kontrollera  
+do modelu  
+→ reużywalność  
+**GLOBAL SCOPE - jakaś funkcjonalność bez kontekttu którą moząn wstrzyknać;)**  
+*w sumie dołączyć przez statyczną metodę booted*  
+**można porównać go do Traitów (z phpa), za pomocą use.. można w nich korzystać**  
+global scope można wstrzyknąć do modelu,   
+minus - każdy model który korzysta z GlobalScopu musi miec kolumnę zapinaną w global scoupie  
+a przy migracji zmienai się model, ale **nazwa kolumny jest HARDKODOWANA W SCOPIE**
+trzeva to robić ręcznie – zmieniać kolumnę – i o tym pamiętać  
+zbyt duża ilość globalnych scopów robi zamieszanie i trudno będzie nam debugować cokolwiek  
 
 scope operuje na modelu, więc wrzucimy go do klasy związanej z modelami
-nadpisanie w modelu statycznej metodu booted() - i wstrzyknięcie jako argumenty instancji klasy
+nadpisanie w modelu statycznej metodu booted() - i wstrzyknięcie jako argumenty instancji klasy  
 sprawia że każdy model może implementtować ten scope
 
 
-FILLABLE
-zabezpieczenie Laravela (w sumei Eloquenta) dotyczące głównie HTTP
+**FILLABLE**  
+zabezpieczenie Laravela (w sumie Eloquenta) dotyczące głównie HTTP
 np. mamy formularz,
 ktoś może sppreparpwać request np. Postmanem
 i ktoś mógłby zgadywać nowe klucze i tworzyć/edytować nowe treści
 **np. admin => true/false**
 **np. isAdmin => true/false**
 
-## Middleware
-Jak Laravel DZIAŁA POD SPODEM / POD MASKĄ
-Co to jest 
-jak się do tego dostać
-Implementacja nowego middleware
-
+## Middleware  
+Jak Laravel DZIAŁA POD SPODEM / POD MASKĄ  
 Oprogramowanie pośredniczące
 
-Request
-Controller (wstępna weryfikacja)
-BuisnessLogic - Model ale NIE STRZAŁ DO BD a.. Serwisy, złożenie zamówienia
+Request  
+Controller (wstępna weryfikacja)  
+BuisnessLogic - Model ale NIE STRZAŁ DO BD a.. Serwisy, złożenie zamówienia  
   1. sorawdzenie dostępności
   2. wygenerowanie zamówienia
   3. podsumowani zamówienia
   4. itd
-Controller
-Response (view/json)
 
-public function show(Game $game, Request $request): View
-{
+Controller  
+Response (view/json)  
 
-  **MIDLLEWARE - OWIJA KONTROLLER**
-  **kontrollerów mamy dużo a akcji jesdzcze więcej**
-  **wszyatko można wykonać w akcjach ALE**
-  **MIDDLEWARE owija automatycznie każdy kontroller**
-  **nieważne jaki kontroller będzie wykonany, KOD za pomocą jednego middlewara**
-  **wykona się zawsze**
-  **jaki flow się wykona**
-  **jaka logika domenowa się wykona**
-  → filtrowanie danych
-  → analiza dancy
-  → profiliwanie dancy
-  → logowanie danych
-  performance: czas startu, czas zakończenia, OBLICZA RÓŻNICĘ
-  → można to wyciągnąć do helpera ale trzeba zapinać to w każdej akcji
-  + nie zaśmiecami kontrollera tym co nie jest istotne
-  → system do autoryzacji - czy dany użytkownik ma prawo do autoryzacji?
-**middleware pośredniczy w przekazywaniu żądania od użytkownika do kontollera, od kontrollera do użytkownika**
+    public function show(Game $game, Request $request): View
+    {
 
-  $isAjax = false;
-  if ($request->ajax()){
-    $isAjax = true;
-  }
-  Kontroller: działania na obiekcie request,
-  Kontroller: CQRS, uruchomienie jakiejś szyny
+      **MIDLLEWARE - OWIJA KONTROLLER**
+      **kontrollerów mamy dużo a akcji jesdzcze więcej**
+      **wszyatko można wykonać w akcjach ALE**
+      **MIDDLEWARE owija automatycznie każdy kontroller**
+      **nieważne jaki kontroller będzie wykonany, KOD za pomocą jednego middlewara**
+      **wykona się zawsze**
+      **jaki flow się wykona**
+      **jaka logika domenowa się wykona**
+      → filtrowanie danych
+      → analiza dancy
+      → profiliwanie dancy
+      → logowanie danych
+      performance: czas startu, czas zakończenia, OBLICZA RÓŻNICĘ
+      → można to wyciągnąć do helpera ale trzeba zapinać to w każdej akcji
+      + nie zaśmiecami kontrollera tym co nie jest istotne
+      → system do autoryzacji - czy dany użytkownik ma prawo do autoryzacji?
+    **middleware pośredniczy w przekazywaniu żądania od użytkownika do kontollera, od kontrollera do użytkownika**
 
-    -----------------
-    Logika Domenowa: 
-  **SERWISY**
-      wyciągnięcie danych na temat gry
-      realizacja żądania użtkownika
-    $game = Game::find($gameId);
-    JAK EIDZIMY KONTROLLER OWIJA LOGIKĘ BIZNESOWĄ
-    tu mogą pojawić się SERWISY ORAZ FABRYKI
-    -----------------
+      $isAjax = false;
+      if ($request->ajax()){
+        $isAjax = true;
+      }
+      Kontroller: działania na obiekcie request,
+      Kontroller: CQRS, uruchomienie jakiejś szyny
 
-    generowanie widoku dla użytkownika
-  **MIDLLEWARE - OWIJA KONTROLLER**
+        -----------------
+        Logika Domenowa: 
+      **SERWISY**
+          wyciągnięcie danych na temat gry
+          realizacja żądania użtkownika
+        $game = Game::find($gameId);
+        JAK BEDZIEMY KONTROLLER OWIJA LOGIKĘ BIZNESOWĄ
+        tu mogą pojawić się SERWISY ORAZ FABRYKI
+        -----------------
 
-    if(isAjax)
-        return $game
-    else
-        return view('games.eloquent.show', compact('game'));
-}
+        generowanie widoku dla użytkownika
+      **MIDLLEWARE - OWIJA KONTROLLER**
+
+        if(isAjax)
+            return $game
+        else
+            return view('games.eloquent.show', compact('game'));
+    }
 
 middlewary są jak cebula
 są jak ogry
@@ -1401,19 +1401,18 @@ mają warstwy
 i każdy middleware może się na siebie nakładać
 
 
-**php artisan make:middleware Login**
-
-**
+**php artisan make:middleware Login**  
 
 Formę tego można znaleźć w oprogramowaniu pośredniczącym Laravela.
 
 https://webdevetc.com/blog/the-chain-of-responsibility-programming-design-pattern-explained-using-php/
 
-**Wzorzec projektowy Pipeline** 
-twór wzorzec, gdzie definiujemy kolejne kroki do wykonania
-a każdy następny krok bazuje na wynikach dostarczonych z poprzedniego kroku
 
-**Wzorzec projektowy Chain of Responsibility** 
+**Wzorzec projektowy Pipeline**   
+twór wzorzec, gdzie definiujemy kolejne kroki do wykonania  
+a każdy następny krok bazuje na wynikach dostarczonych z poprzedniego kroku  
+
+**Wzorzec projektowy Chain of Responsibility**   
 zyskuje na popularności, ponieważ jest częścią standardu PSR-15 (HTTP Request Middleware). Oto krótki przegląd tego. Pozwala łączyć szereg akcji, które powinny być wykonywane w określonej kolejności. Bardzo często akcje te mają możliwość przerwania przetwarzania dalszych pozycji.
 
 Łańcuch Odpowiedzialności korzysta z listy obiektów, będzie przez nie przechodził – chyba że jeden z nich zatrzyma „następny”.
@@ -1423,13 +1422,13 @@ W tym przykładzie, jeśli program obsługi chce zatrzymać dalsze akcje, zgłas
 Mógłbyś po prostu zakodować to wszystko w jednej dużej klasie (przechodząc przez dużą liczbę rzeczy do sprawdzenia / rzeczy do zrobienia). Jednak nie jest to zgodne z zasadami SOLID. Stosowanie wzorca łańcucha odpowiedzialności pozwala na przestrzeganie zasady otwarte/zamknięte i znacznie ułatwia jego rozbudowę w przyszłości.
 
 ## Logowanie_Rejestracja
-Autentykacja - tym czy ktoś jest za kogo się podaje,  LOGIN, HASŁO
-Autoryzacja - analizujemy uprawnienia w kontekścei zasobu;
-czy ma uprawnienia do zoasobu, np. edycji posta,
+Autentykacja - tym czy ktoś jest za kogo się podaje,  LOGIN, HASŁO  
+Autoryzacja - analizujemy uprawnienia w kontekścei zasobu;  
+czy ma uprawnienia do zoasobu, np. edycji posta,  
 
-laravel new nowy_projekt --auth
-php artisan ui bootstrap --auth
-npm install && npm run dev
+    laravel new nowy_projekt --auth  
+    php artisan ui bootstrap --auth  
+    npm install && npm run dev  
 
 config/auth.php
 **gurardy**
